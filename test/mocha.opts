@@ -1,6 +1,6 @@
 test
+server
 --recursive
 --ui bdd
 --reporter spec
 --timeout 20000
-
