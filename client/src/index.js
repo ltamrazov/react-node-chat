@@ -16,10 +16,8 @@ const store = createStore(allReducers);
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 
 ReactDOM.render(
-  <Localization messages={localizationBundle}>
-    <Provider store={store}>
-      <Routes />
-    </Provider>
-  </Localization>,
+  <Provider store={store}>
+    <Routes />
+  </Provider>,
   document.getElementById('app')
 );
