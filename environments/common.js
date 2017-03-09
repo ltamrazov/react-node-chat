@@ -14,7 +14,8 @@ module.exports = {
       'redux',
       'react-redux',
       'redux-form',
-      'redux-thunk'
+      'redux-thunk',
+      'socket.io-client'
     ]
   },
 
