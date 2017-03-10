@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Router, IndexRoute, browserHistory } from 'react-router';
 
-import App from './components/app';
-import Landing from './components/landing';
+import App from 'App';
+import Landing from 'Landing';
 
 const componentRoutes = {
   component: App,

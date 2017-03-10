@@ -18,7 +18,8 @@ module.exports = {
     contentBase: '../client/dist',
     inline: true,
     historyApiFallback: true,
-    headers: {'Access-Control-Allow-Origin': '*'}
+    headers: {'Access-Control-Allow-Origin': '*'},
+    host: '0.0.0.0'
   },
 
   plugins: [

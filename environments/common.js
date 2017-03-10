@@ -1,7 +1,34 @@
 const webpack = require('webpack'),
   path = require('path'),
   ExtractTextPlugin = require("extract-text-webpack-plugin"),
-  HTMLWebpackPlugin = require('html-webpack-plugin');
+  HTMLWebpackPlugin = require('html-webpack-plugin'),
+  fs = require('fs');
+
+const clientPath = path.resolve(__dirname, '..', 'client');
+
+const components = {
+  extensions: ['.js'],
+  paths: [
+    'src/components'
+  ]
+};
+
+const componentAliases =
+  components.paths.reduce((aliases, currentPath) => {
+    fs.readdirSync(path.resolve(clientPath, currentPath))
+      .map(file =>
+        path.resolve(clientPath, currentPath, file)
+      )
+      .filter(fullPath =>
+        components.extensions.includes(path.extname(fullPath))
+      )
+      .forEach(fullPath =>
+        aliases[path.basename(fullPath, path.extname(fullPath))] = fullPath
+      )
+
+    return aliases;
+  }, {}
+);
 
 module.exports = {
   entry: {
@@ -21,7 +48,12 @@ module.exports = {
   },
 
   output: {
-    path: path.join(__dirname, '..', 'client/dist')
+    path: path.join(clientPath, 'dist')
+  },
+
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: componentAliases
   },
 
   module: {
@@ -41,7 +73,7 @@ module.exports = {
     ]
   },
 
-  context: path.join(__dirname, '..', 'client'),
+  context: clientPath,
 
   plugins: [
     new webpack.ProvidePlugin({
