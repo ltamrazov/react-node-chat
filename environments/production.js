@@ -1,4 +1,6 @@
-const webpack = require('webpack');
+const webpack = require('webpack'),
+  ExtractTextPlugin = require("extract-text-webpack-plugin"),
+  ExtractCSS = new ExtractTextPlugin("css/[name].[chunkhash].css");
 
 module.exports = {
   entry: {
@@ -12,6 +14,8 @@ module.exports = {
   },
 
   plugins: [
+    ExtractCSS,
+
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
     }),

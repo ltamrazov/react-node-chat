@@ -16,7 +16,8 @@ module.exports = {
       'redux-form',
       'redux-thunk',
       'socket.io-client'
-    ]
+    ],
+    main: '../client/src/styles/main.scss'
   },
 
   output: {
@@ -29,6 +30,13 @@ module.exports = {
         test: /\.jsx?$/,
         use: 'babel-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.scss/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: "css-loader!sass-loader",
+        }),
       }
     ]
   },

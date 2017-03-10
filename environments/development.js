@@ -1,4 +1,6 @@
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
+  ExtractTextPlugin = require("extract-text-webpack-plugin"),
+  ExtractCSS = new ExtractTextPlugin("css/[name].css");
 
 module.exports = {
   entry: {
@@ -20,6 +22,8 @@ module.exports = {
   },
 
   plugins: [
+    ExtractCSS,
+    
     new BrowserSyncPlugin({
       proxy: 'localhost:8080'
     })
