@@ -9,7 +9,10 @@ const clientPath = path.resolve(__dirname, '..', 'client');
 const components = {
   extensions: ['.js'],
   paths: [
-    'src/components'
+    'src/components',
+    'src/components/auth',
+    'src/components/message',
+    'src/components/navigation'
   ]
 };
 
