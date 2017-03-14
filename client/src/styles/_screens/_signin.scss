@@ -1,0 +1,28 @@
+.signin-form {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+
+  .form-group {
+    width: 60%;
+    margin: 30px auto;
+
+    .alert {
+      display: inline-block;
+      padding: 5px;
+      width: 100%;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      text-align: left;
+
+      &.alert-danger {
+        background: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+
+  .btn {
+    width: 60%;
+  }
+}
