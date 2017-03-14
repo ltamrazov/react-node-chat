@@ -7,13 +7,13 @@ import {
 } from './types';
 
 // Need to update the below with the API rppt URL
-const ROOT_URL = 'http://localhost:3090';
+const ROOT_URL = 'http://localhost:9494';
 
-export function signinUser({ email, password }) {
+export function signinUser({ username, password }) {
   // Actions generally return an object but when we use redux-thunk we return a function that allows us to use the dispatch method
   return function(dispatch) {
     // Submit email/password to api server
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}/login`, { username, password })
       .then(response => {
         // If request is good...
         // - Update state to indicate user is authenticated
@@ -21,7 +21,7 @@ export function signinUser({ email, password }) {
         // - Save JWT token
         localStorage.setItem('token', response.data.token);
         // - reidirect to the route '/feature'
-        browserHistory.push('/feature');
+        browserHistory.push('/message');
       })
       .catch(() => {
         // If request is bad...

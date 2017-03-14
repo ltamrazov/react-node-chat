@@ -1,1 +1,101 @@
 /**** This file will hold all the variables for color, font size etc. ****/
+
+/****************************************/
+/**** Screen sizes for media queries ****/
+/****************************************/
+$screen-sm-min:             768px;
+$screen-md-min:             992px;
+$screen-lg-min:             1200px;
+
+/*********************************/
+/**** Basic color declaration ****/
+/*********************************/
+$black:                     #000000;
+$white:                     #FFFFFF;
+
+/********************************************/
+/**** Project-specific color declaration ****/
+/********************************************/
+$dark-theme-bg-color:       #212121;
+$light-theme-bg-color:      #EEEEEE;
+$desire-green:              #78A53A;
+$nav-background:            #323232;
+$main-background:           #444444;
+$secondary-color:           #3E3E3E;
+$border-gray:               #EEEEEE;
+$light-gray-background:     #F0F0F0;
+$warning-yellow:            #E5B200;
+$error-red:                 #FF0404;
+$success-green:             #00A500;
+$error-label:               #F54040;
+$facebook-blue:             #3b5998;
+$input-color:               #454545;
+$black-50-light:            lighten($black, 50%);
+$primary-cta-hover:         #8cac61;
+$secondary-cta-hover:       #323232;
+
+/*********************************/
+/**** Font-family declaration ****/
+/*********************************/
+$font-family-roboto:                  'Roboto', sans-serif;
+$font-family-raleway:                 'Raleway', sans-serif;
+
+/*********************************/
+/**** Font-weight declaration ****/
+/*********************************/
+$font-weight-thin:          100;
+$font-weight-exlight:       200;
+$font-weight-light:         300;
+$font-weight-regular:       400;
+$font-weight-medium:        500;
+$font-weight-semibold:      600;
+$font-weight-bold:          700;
+$font-weight-exbold:        800;
+$font-weight-black:         900;
+
+/*******************************/
+/**** Font-size declaration ****/
+/*******************************/
+$font-9-size:               9px;
+$font-10-size:              10px;
+$font-12-size:              12px;
+$font-13-size:              13px;
+$font-14-size:              14px;
+$font-16-size:              16px;
+$font-18-size:              18px;
+$font-21-size:              21px;
+$font-22-size:              22px;
+$font-24-size:              24px;
+$font-30-size:              30px;
+
+/***************************************/
+/**** Font-type percent declaration ****/
+/***************************************/
+$dark-theme-font-primary-percent:      1;
+$dark-theme-font-secondary-percent:    0.7;
+$dark-theme-font-disabled-percent:     0.3;
+$light-theme-font-primary-percent:     0.87;
+$light-theme-font-secondary-percent:   0.54;
+$light-theme-font-disabled-percent:    0.38;
+
+/*************************************************/
+/**** Different themes font color declaration ****/
+/*************************************************/
+$dark-theme-primary-font-color:       $white;
+$dark-theme-secondary-font-color:     lighten($white, $dark-theme-font-secondary-percent);
+$dark-theme-disabled-font-color:      lighten($white, $dark-theme-font-disabled-percent);
+$light-theme-primary-font-color:      lighten($black, $light-theme-font-primary-percent);
+$light-theme-secondary-font-color:    lighten($black, $light-theme-font-secondary-percent);
+$light-theme-disabled-font-color:     lighten($black, $light-theme-font-disabled-percent);
+
+/*****************************************/
+/**** Variable declaration for mixins ****/
+/*****************************************/
+$border-radius:             2px;
+$width-allowed:             4;
+$max-width-allowed:         10;
+$column-size:               25%;
+$borderType:                solid;
+$border-side:               all left top bottom right;
+$padding-side:              all left top right bottom top-bottom left-right;
+$margin-side:               all left top right bottom top-bottom left-right;

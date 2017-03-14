@@ -1,10 +1,10 @@
 .signin-form {
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 
   .form-group {
-    width: 60%;
+    width: 80%;
     margin: 30px auto;
 
     .alert {
@@ -23,6 +23,26 @@
   }
 
   .btn {
-    width: 60%;
+    width: 80%;
+
+    &:hover, &:focus, &:active {
+      cursor: pointer;
+    }
   }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+  .signin-form {
+    width: 50%;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
 }

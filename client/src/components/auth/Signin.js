@@ -7,10 +7,12 @@ class Signin extends Component {
   constructor(props) {
     super(props);
 
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  handleFormSubmit({ email, password }) {
-    this.props.signinUser({ email, password });
+  handleFormSubmit({ username, password }) {
+    console.log("I am here");
+    this.props.signinUser({ username, password });
   }
 
   renderError() {
@@ -25,7 +27,7 @@ class Signin extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    const required = value => value ? undefined : 'Required';
+    const required = value => value ? undefined : 'This is a required field';
     const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined;
 
     const renderField = ({ input, placeholder, type, className, meta: { touched, error, warning }}) => (
@@ -45,10 +47,10 @@ class Signin extends Component {
         <fieldset className="form-group">
           <div>
             <Field
-              name="email"
+              name="username"
               component={renderField}
               type="text"
-              placeholder="Email"
+              placeholder="Username"
               className="form-control"
               validate={[ required, email ]}
             />

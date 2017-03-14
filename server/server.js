@@ -20,12 +20,16 @@ const app = express();
 const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 
+const cors = require('cors');
+
 const STATIC = '../client/dist';
 
 /**
  * Secure the server
  */
 app.use(helmet());
+
+app.use(cors());
 
 /**
  * Logging middleware will log every request
