@@ -46,7 +46,7 @@ function getTypes () {
  * Function for construction a generic error. Should only be used if the error
  * does not fit any predefined types.
  */
-function createError (message, status) {
+function createError (status, message) {
     return {
         message: message,
         status: status,

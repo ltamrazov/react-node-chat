@@ -6,6 +6,7 @@
  */
 
 const logger = require('../logger');
+const ErrorTypes = require('./errors.js').getTypes();
 
 module.exports = ErrorHandler;
 
@@ -20,6 +21,10 @@ function ErrorHandler (opts) {
         // was also already logged. So just send.
         if (err.safeError) {
             return res.status(err.status).send(err.message);
+        }
+
+        if (err.name && err.name === 'UnauthorizedError') {
+            return res.status(ErrorTypes.unauthorized().status).send('Token is invalid');
         }
 
         // message consists of error message and the stack.

@@ -5,6 +5,7 @@
  */
 
 const winston = require('winston');
+const config = require('config');
 
 /**
  * Remove default console logger
@@ -19,7 +20,7 @@ winston.add(winston.transports.Console, {
         // YYYY:DD:YY HH:MM:SS
         return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
     },
-    level: 'verbose',
+    level: config.get('logLevel'),
     colorize: true
 });
 

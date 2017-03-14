@@ -5,6 +5,7 @@
  */
 
 const express = require('express');
+const controllers = require('../controllers');
 const router = express.Router();
 
 /**
@@ -13,5 +14,12 @@ const router = express.Router();
 router.get('/health', (req, res, next) => {
     res.status(200).send('ok');
 });
+
+/**
+ * Authentication
+ */
+const authController = controllers.auth;
+router.post('/login', authController.login);
+router.post('/logout', authController.logout);
 
 module.exports = router;
