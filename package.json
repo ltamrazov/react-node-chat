@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && node index.js",
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
+    "test": "LOG_LEVEL=error ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
     "clean": "rimraf client/dist",
     "dev": "NODE_ENV=development npm run build && ./node_modules/.bin/webpack-dev-server",
     "build": "npm run clean && ./node_modules/.bin/webpack",
