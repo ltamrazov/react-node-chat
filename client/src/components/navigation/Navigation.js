@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import PublicNavigation from './PublicNavigation';
-import PrivateNavigation from './PrivateNavigation';
+import { Link } from 'react-router-dom';
+import PublicNavigation from 'PublicNavigation';
+import PrivateNavigation from 'PrivateNavigation';
 
 class Navigation extends Component {
   renderLinks() {
