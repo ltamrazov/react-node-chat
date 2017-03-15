@@ -18,7 +18,6 @@ const authenticator = require('./authenticator');
 
 const app = express();
 const server = http.createServer(app);
-const io = require('socket.io').listen(server);
 
 const cors = require('cors');
 
@@ -29,6 +28,9 @@ const STATIC = '../client/dist';
  */
 app.use(helmet());
 
+/**
+ * CORS headers
+ */
 app.use(cors());
 
 /**
@@ -45,7 +47,6 @@ app.use(express.static(path.join(__dirname, STATIC)));
  * Authentication
  */
 app.use(authenticator.express);
-io.use(authenticator.socket);
 
 /**
  * Parse body
