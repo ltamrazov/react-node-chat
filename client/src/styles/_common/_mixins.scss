@@ -1,1 +1,19 @@
 /**** Custom created mixins stay here ****/
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin add-bg-transparency($base-color, $amount) {
+  background-color: transparentize($base-color, $amount);
+}
+
+@mixin add-border-transparency($base-color, $amount) {
+  border-color: transparentize($base-color, $amount);
+}
+
+@mixin add-font-transparency($base-color, $amount) {
+  color: transparentize($base-color, $amount);
+}

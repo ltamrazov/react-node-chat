@@ -11,7 +11,6 @@ class Signin extends Component {
   }
 
   handleFormSubmit({ username, password }) {
-    console.log("I am here");
     this.props.signinUser({ username, password });
   }
 
@@ -21,7 +20,7 @@ class Signin extends Component {
         <div className="alert alert-danger">
           {this.props.errorMessage}
         </div>
-      )
+      );
     }
   }
 
@@ -43,34 +42,36 @@ class Signin extends Component {
     );
 
     return (
-      <form className="signin-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <fieldset className="form-group">
-          <div>
-            <Field
-              name="username"
-              component={renderField}
-              type="text"
-              placeholder="Username"
-              className="form-control"
-              validate={[ required, email ]}
-            />
-          </div>
-        </fieldset>
-        <fieldset className="form-group">
-          <div>
-            <Field
-              name="password"
-              component={renderField}
-              type="password"
-              placeholder="Password"
-              className="form-control"
-              validate={[ required ]}
-            />
-          </div>
-        </fieldset>
-        {this.renderError()}
-        <button className="btn btn-primary">Sign in</button>
-      </form>
+      <div className="signin-section">
+        <form className="signin-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <fieldset className="form-group">
+            <div>
+              <Field
+                name="username"
+                component={renderField}
+                type="text"
+                placeholder="Username"
+                className="form-control"
+                validate={[ required, email ]}
+              />
+            </div>
+          </fieldset>
+          <fieldset className="form-group">
+            <div>
+              <Field
+                name="password"
+                component={renderField}
+                type="password"
+                placeholder="Password"
+                className="form-control"
+                validate={[ required ]}
+              />
+            </div>
+          </fieldset>
+          {this.renderError()}
+          <button className="btn btn-primary">Sign in</button>
+        </form>
+      </div>
     );
   }
 }

@@ -1,1 +1,12 @@
 /**** All button specific styles will be defined here ****/
+.btn {
+  &.btn-primary {
+    @include add-bg-transparency($primary-color, 0.1);
+    @include add-border-transparency($primary-color, 0.1);
+
+    &:hover, &:focus, &:active {
+      @include add-bg-transparency($primary-color, 0.4);
+      @include add-border-transparency($primary-color, 0.4);
+    }
+  }
+}

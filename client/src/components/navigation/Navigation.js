@@ -20,8 +20,21 @@ class Navigation extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light">
-        <Link to="/" className="navbar-brand">Simple Chat App</Link>
+      <nav className="chat-navigation">
+        <button
+          className="navbar-toggler navbar-toggler-right collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarMenu"
+          aria-controls="navbarMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <Link to="/" className="navbar-brand">Chat App</Link>
         {this.renderLinks()}
       </nav>
     );
@@ -29,9 +42,9 @@ class Navigation extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-      authenticated: state.auth.authenticated
-    }
+  return {
+    authenticated: state.auth.authenticated
+  };
 }
 
 export default connect(mapStateToProps)(Navigation);

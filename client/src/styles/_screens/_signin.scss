@@ -1,32 +1,42 @@
-.signin-form {
+.signin-section {
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+  left: 0;
   width: 100%;
-  margin: 0 auto;
   text-align: center;
 
-  .form-group {
-    width: 80%;
-    margin: 30px auto;
+  .signin-form {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
 
-    .alert {
-      display: inline-block;
-      padding: 5px;
-      width: 100%;
-      margin-top: 0px;
-      margin-bottom: 0px;
-      text-align: left;
+    .form-group {
+      width: 80%;
+      margin: 30px auto;
 
-      &.alert-danger {
-        background: transparent;
-        border-color: transparent;
+      .alert {
+        display: inline-block;
+        padding: 5px;
+        width: 100%;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        text-align: left;
+
+        &.alert-danger {
+          background: transparent;
+          border-color: transparent;
+        }
       }
     }
-  }
 
-  .btn {
-    width: 80%;
+    .btn {
+      width: 80%;
 
-    &:hover, &:focus, &:active {
-      cursor: pointer;
+      &:hover, &:focus, &:active {
+        cursor: pointer;
+      }
     }
   }
 }

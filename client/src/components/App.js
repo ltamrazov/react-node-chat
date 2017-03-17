@@ -11,7 +11,7 @@ const App = ({ children }) => {
   return (
     <div>
       <Navigation />
-      <div className="container">
+      <div className="container main-container">
         {children}
         <Route exact path="/" component={Landing} />
         <Route path="/signin" component={Signin} />
@@ -21,6 +21,5 @@ const App = ({ children }) => {
     </div>
   );
 };
-
 
 export default App;

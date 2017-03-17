@@ -1,0 +1,41 @@
+.chat-navigation {
+  @extend .navbar;
+  @extend .navbar-toggleable-md;
+  @include add-bg-transparency($primary-color, 0.1);
+  padding-left: 0px;
+  padding-right: 0px;
+
+  .navbar-toggler {
+    border-color: $white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .navbar-toggler-icon {
+      @include add-bg-transparency($white, 0.3);
+      display: block;
+      height: 1px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background-image: none;
+      width: 20px;
+    }
+  }
+
+  .navbar-brand {
+    @include add-font-transparency($white, 0.3);
+    padding-left: 15px;
+  }
+
+  .navbar-nav {
+    li {
+      border-top: 1px solid #FFFFFF;
+
+      a {
+        @include add-font-transparency($white, 0.3);
+        padding-left: 15px;
+      }
+    }
+  }
+
+
+}
