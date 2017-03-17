@@ -5,12 +5,11 @@ const App = ({ children }) => {
   return (
     <div>
       <Navigation />
-      <div className="container">
+      <div className="container main-container">
         {children}
       </div>
     </div>
   );
 };
-
 
 export default App;

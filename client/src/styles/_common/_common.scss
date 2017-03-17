@@ -1,1 +1,9 @@
 /**** All common style that will be used across the site will be defined here ****/
+.main-container {
+  height: 100%;
+  display: table;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}

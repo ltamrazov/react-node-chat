@@ -16,23 +16,7 @@ $white:                     #FFFFFF;
 /********************************************/
 /**** Project-specific color declaration ****/
 /********************************************/
-$dark-theme-bg-color:       #212121;
-$light-theme-bg-color:      #EEEEEE;
-$desire-green:              #78A53A;
-$nav-background:            #323232;
-$main-background:           #444444;
-$secondary-color:           #3E3E3E;
-$border-gray:               #EEEEEE;
-$light-gray-background:     #F0F0F0;
-$warning-yellow:            #E5B200;
-$error-red:                 #FF0404;
-$success-green:             #00A500;
-$error-label:               #F54040;
-$facebook-blue:             #3b5998;
-$input-color:               #454545;
-$black-50-light:            lighten($black, 50%);
-$primary-cta-hover:         #8cac61;
-$secondary-cta-hover:       #323232;
+$primary-color:             #424242;
 
 /*********************************/
 /**** Font-family declaration ****/
@@ -67,26 +51,6 @@ $font-21-size:              21px;
 $font-22-size:              22px;
 $font-24-size:              24px;
 $font-30-size:              30px;
-
-/***************************************/
-/**** Font-type percent declaration ****/
-/***************************************/
-$dark-theme-font-primary-percent:      1;
-$dark-theme-font-secondary-percent:    0.7;
-$dark-theme-font-disabled-percent:     0.3;
-$light-theme-font-primary-percent:     0.87;
-$light-theme-font-secondary-percent:   0.54;
-$light-theme-font-disabled-percent:    0.38;
-
-/*************************************************/
-/**** Different themes font color declaration ****/
-/*************************************************/
-$dark-theme-primary-font-color:       $white;
-$dark-theme-secondary-font-color:     lighten($white, $dark-theme-font-secondary-percent);
-$dark-theme-disabled-font-color:      lighten($white, $dark-theme-font-disabled-percent);
-$light-theme-primary-font-color:      lighten($black, $light-theme-font-primary-percent);
-$light-theme-secondary-font-color:    lighten($black, $light-theme-font-secondary-percent);
-$light-theme-disabled-font-color:     lighten($black, $light-theme-font-disabled-percent);
 
 /*****************************************/
 /**** Variable declaration for mixins ****/

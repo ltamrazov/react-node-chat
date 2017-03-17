@@ -1,6 +1,7 @@
 /**** Main scss file that imports all the other ones ****/
 @import
   '../../../node_modules/bootstrap/scss/bootstrap',
-  './_common/_base.scss',
-  './_atoms/_base.scss',
-  './_screens/_base.scss';
+  './_common/base',
+  './_atoms/base',
+  './_components/base',
+  './_screens/base';
