@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
 import {
   AUTH_USER,
   UNAUTH_USER,
@@ -9,7 +8,7 @@ import {
 // Need to update the below with the API rppt URL
 const ROOT_URL = 'http://localhost:9494';
 
-export function signinUser({ username, password }) {
+export function signinUser({ username, password }, history) {
   // Actions generally return an object but when we use redux-thunk we return a function that allows us to use the dispatch method
   return function(dispatch) {
     // Submit email/password to api server
@@ -21,7 +20,7 @@ export function signinUser({ username, password }) {
         // - Save JWT token
         localStorage.setItem('token', response.data.token);
         // - reidirect to the route '/feature'
-        browserHistory.push('/message');
+        history.push('/message');
       })
       .catch(() => {
         // If request is bad...

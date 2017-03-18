@@ -10,8 +10,12 @@ class Signin extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
   handleFormSubmit({ username, password }) {
-    this.props.signinUser({ username, password });
+    this.props.signinUser({ username, password }, this.context.router.history);
   }
 
   renderError() {
