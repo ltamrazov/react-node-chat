@@ -4,6 +4,7 @@ import {
   UNAUTH_USER,
   AUTH_ERROR
 } from './types';
+import io from 'socket.io-client';
 
 // Need to update the below with the API rppt URL
 const ROOT_URL = 'http://localhost:9494';
@@ -20,7 +21,16 @@ export function signinUser({ username, password }, history) {
         // - Save JWT token
         localStorage.setItem('token', response.data.token);
         // - reidirect to the route '/feature'
+        io.connect(':9494', {
+          query: 'token=' + response.data.token
+        });
+
         history.push('/message');
+
+        return {
+          type: AUTH_USER,
+          payload: io
+        }
       })
       .catch(() => {
         // If request is bad...
