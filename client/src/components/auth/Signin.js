@@ -3,6 +3,18 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
+const renderField = ({ input, placeholder, type, className, meta: { touched, error, warning }}) => (
+  <div>
+    <input
+      {...input}
+      placeholder={placeholder}
+      type={type}
+      className={className}
+    />
+  {touched && ((error && <span className="alert alert-danger">{error}</span>) || (warning && <span className="alert alert-danger">{warning}</span>))}
+  </div>
+);
+
 class Signin extends Component {
   constructor(props) {
     super(props);
@@ -33,18 +45,6 @@ class Signin extends Component {
     const required = value => value ? undefined : 'This is a required field';
     const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined;
 
-    const renderField = ({ input, placeholder, type, className, meta: { touched, error, warning }}) => (
-      <div>
-        <input
-          {...input}
-          placeholder={placeholder}
-          type={type}
-          className={className}
-        />
-      {touched && ((error && <span className="alert alert-danger">{error}</span>) || (warning && <span className="alert alert-danger">{warning}</span>))}
-      </div>
-    );
-
     return (
       <div className="signin-section">
         <form className="signin-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
@@ -56,7 +56,7 @@ class Signin extends Component {
                 type="text"
                 placeholder="Username"
                 className="form-control"
-                validate={[ required, email ]}
+                validate={[ required ]}
               />
             </div>
           </fieldset>

@@ -43,8 +43,10 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {
-  .signin-form {
-    width: 50%;
+  .signin-section {
+    .signin-form {
+      width: 50%;
+    }
   }
 }
 
