@@ -21,19 +21,24 @@ export function signinUser ({ username, password }, history) {
         dispatch({ type: AUTH_USER });
         // - Save JWT token
         localStorage.setItem('token', response.data.token);
-        // - reidirect to the route '/feature'
-        io.connect(':9494', {
+
+        let socket = io.connect(':9494', {
           query: 'token=' + response.data.token
         });
 
+        socket.on('users', users =>
+          dispatch(fetchUserList(users)));
+
+        // - redirect to the route '/message'
         history.push('/message');
 
         return {
           type: AUTH_USER,
-          payload: io
+          payload: socket
         };
       })
-      .catch(() => {
+      .catch((...errors) => {
+        console.log(...errors);
         // If request is bad...
         // - Show error to the user
         dispatch(authError('Bad login info'));
@@ -57,12 +62,11 @@ export function signoutUser () {
   };
 }
 
-export function fetchUserList () {
+export function fetchUserList (users) {
   console.log('inside fetch user list');
-  io.on('users', function (users) {
-    console.log('users ', users);
-  });
+  console.log('users ', users);
 
+  //TODO: emit a 'users' event from the socket stored on connection and get the users list back
   return {
     type: FETCH_USER
   };
