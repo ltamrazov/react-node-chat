@@ -66,8 +66,9 @@ export function fetchUserList (users) {
   console.log('inside fetch user list');
   console.log('users ', users);
 
-  //TODO: emit a 'users' event from the socket stored on connection and get the users list back
+  // TODO: emit a 'users' event from the socket stored on connection and get the users list back
   return {
-    type: FETCH_USER
+    type: FETCH_USER,
+    payload: users
   };
 }

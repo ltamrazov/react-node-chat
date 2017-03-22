@@ -5,21 +5,23 @@ import * as actions from '../../actions';
 
 class Message extends Component {
   componentWillMount () {
-      this.props.fetchUserList();
+    this.props.fetchUserList();
   }
 
   render () {
+    console.log(this.props.users);
+    
     return (
       <div className="message-list">
-        Welcome to message page
+        {this.props.users}
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-    authenticated: state.auth.authenticated
+    users: state.auth.users
   };
 }
 
