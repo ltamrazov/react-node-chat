@@ -16,9 +16,6 @@ export function signinUser ({ username, password }, history) {
     // Submit email/password to api server
     axios.post(`${ROOT_URL}/login`, { username, password })
       .then(response => {
-        // If request is good...
-        // - Update state to indicate user is authenticated
-        dispatch({ type: AUTH_USER });
         // - Save JWT token
         localStorage.setItem('token', response.data.token);
 
@@ -28,6 +25,13 @@ export function signinUser ({ username, password }, history) {
 
         socket.on('users', users =>
           dispatch(fetchUserList(users)));
+
+        // If request is good...
+        // - Update state to indicate user is authenticated
+        dispatch({
+          type: AUTH_USER,
+          payload: socket
+        });
 
         // - redirect to the route '/message'
         history.push('/message');
