@@ -27,7 +27,7 @@ export default function(ComposedComponent) {
   }
 
   function mapStateToProps(state) {
-    return { socket: state.socket, authenticated: state.auth.authenticated };
+    return { socket: state.auth.socket, authenticated: state.auth.authenticated };
   }
 
   return connect(mapStateToProps)(Authentication);

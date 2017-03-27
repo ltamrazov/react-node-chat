@@ -5,13 +5,12 @@ import * as actions from '../../actions';
 
 class Message extends Component {
   componentWillMount () {
-    //TODO: pass the socket in here?
-    this.props.fetchUserList();
+    const { dispatch, socket, fetchUserList } = this.props;
+
+    dispatch(fetchUserList(socket));
   }
 
   render () {
-    console.log(this.props.users);
-
     return (
       <div className="message-list">
         {this.props.users}
@@ -22,7 +21,7 @@ class Message extends Component {
 
 function mapStateToProps (state) {
   return {
-    socket: state.socket,
+    socket: state.auth.socket,
     users: state.auth.users
   };
 }

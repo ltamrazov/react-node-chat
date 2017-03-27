@@ -3,7 +3,8 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  FETCH_USER
+  FETCH_USER,
+  RECEIVE_USERS
 } from './types';
 import io from 'socket.io-client';
 
@@ -24,7 +25,7 @@ export function signinUser ({ username, password }, history) {
         });
 
         socket.on('users', users =>
-          dispatch(fetchUserList(users)));
+          dispatch(updateUserList(users)));
 
         // If request is good...
         // - Update state to indicate user is authenticated
@@ -66,13 +67,23 @@ export function signoutUser () {
   };
 }
 
-export function fetchUserList (users) {
+export function fetchUserList (socket) {
   console.log('inside fetch user list');
-  console.log('users ', users);
 
-  // TODO: emit a 'users' event from the socket stored on connection and get the users list back
+  socket.emit('users', users =>
+    dispatch(updateUserList(users))
+  );
+
   return {
-    type: FETCH_USER,
+    type: FETCH_USER
+  };
+}
+
+export function updateUserList (users) {
+  console.log('inside update user list', users);
+
+  return {
+    type: RECEIVE_USERS,
     payload: users
   };
 }
