@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+
+import UserList from 'UserList';
 import * as actions from '../../actions';
 
 class Message extends Component {
@@ -12,28 +13,30 @@ class Message extends Component {
   }
 
   renderUser(user) {
-    return (
-      <div className="card card-block" key={user}>
-        <h4 className="card-title">{user}</h4>
-      </div>
-    );
+    const username = localStorage.getItem('username');
+    if (username !== user) {
+      return (
+        <UserList
+          user={user}
+          key={user}
+        />
+      );
+    }
   }
 
   render () {
-    console.log("users", this.props.users);
-
     return (
       <div className="message-list">
-        {Object.keys(this.props.users).map(key =>
-          this.renderUser(this.props.users[key]))}
+        <ul>
+          {Object.keys(this.props.users).map(key =>
+            this.renderUser(this.props.users[key]))}
+        </ul>
       </div>
     );
   }
 }
 
 function mapStateToProps (state) {
-  console.log("User state: ", state.users);
-
   return {
     socket: state.auth.socket,
     users: state.users

@@ -5,7 +5,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
 module.exports = {
   entry: {
     bundle: [
-      'webpack-dev-server/client?http://localhost:8080',
+
       './src/index.js'
     ]
   },
@@ -23,10 +23,8 @@ module.exports = {
   },
 
   plugins: [
-    ExtractCSS,
-    
-    new BrowserSyncPlugin({
-      proxy: 'localhost:8080'
-    })
+    ExtractCSS
+
+
   ]
 };

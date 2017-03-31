@@ -8,7 +8,6 @@ export default function (state = [], action) {
     case FETCH_USER:
       return { ...state };
     case RECEIVE_USERS:
-      console.log("action payload: ", action.payload);
       return { ...state, ...action.payload };
   }
 

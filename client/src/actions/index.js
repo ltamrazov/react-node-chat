@@ -21,6 +21,7 @@ export function signinUser ({ username, password }, history) {
         const token = response.data.token;
         // - Save JWT token
         localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
 
         // If request is good...
         // - Update state to indicate user is authenticated

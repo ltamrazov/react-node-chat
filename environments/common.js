@@ -2,6 +2,7 @@ const webpack = require('webpack'),
   path = require('path'),
   ExtractTextPlugin = require("extract-text-webpack-plugin"),
   HTMLWebpackPlugin = require('html-webpack-plugin'),
+  CopyWebpackPlugin = require("copy-webpack-plugin"),
   fs = require('fs');
 
 const clientPath = path.resolve(__dirname, '..', 'client');
@@ -12,7 +13,8 @@ const components = {
     'src/components',
     'src/components/auth',
     'src/components/message',
-    'src/components/navigation'
+    'src/components/navigation',
+    'src/templates'
   ]
 };
 
@@ -84,6 +86,18 @@ module.exports = {
       'jQuery': 'jquery',
       'Tether': 'tether'
     }),
+
+    new CopyWebpackPlugin(
+      [
+        {
+          from: './src/images/',
+          to: 'images/'
+        }
+      ],
+      {
+        copyUnmodified: true
+      }
+    ),
 
     new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
