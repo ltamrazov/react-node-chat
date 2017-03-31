@@ -3,6 +3,7 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
+  CONNECT_SOCKET,
   FETCH_USER,
   RECEIVE_USERS
 } from './types';
@@ -17,21 +18,17 @@ export function signinUser ({ username, password }, history) {
     // Submit email/password to api server
     axios.post(`${ROOT_URL}/login`, { username, password })
       .then(response => {
+        const token = response.data.token;
         // - Save JWT token
-        localStorage.setItem('token', response.data.token);
-
-        let socket = io.connect(':9494', {
-          query: 'token=' + response.data.token
-        });
-
-        socket.on('users', users =>
-          dispatch(updateUserList(users)));
+        localStorage.setItem('token', token);
 
         // If request is good...
         // - Update state to indicate user is authenticated
+        dispatch(connectSocket(token));
+
         dispatch({
           type: AUTH_USER,
-          payload: socket
+          payload: token
         });
 
         // - redirect to the route '/message'
@@ -39,7 +36,7 @@ export function signinUser ({ username, password }, history) {
 
         return {
           type: AUTH_USER,
-          payload: socket
+          payload: token
         };
       })
       .catch((...errors) => {
@@ -49,6 +46,27 @@ export function signinUser ({ username, password }, history) {
         dispatch(authError('Bad login info'));
       });
   };
+}
+
+export function connectSocket (token) {
+  return function (dispatch) {
+    let socket = io.connect(':9494', {
+      query: 'token=' + token
+    });
+
+    socket.on('users', users =>
+      dispatch(updateUserList(users)));
+
+    dispatch({
+      type: CONNECT_SOCKET,
+      payload: socket
+    });
+
+    return {
+      type: CONNECT_SOCKET,
+      payload: socket
+    };
+  }
 }
 
 export function authError (error) {
