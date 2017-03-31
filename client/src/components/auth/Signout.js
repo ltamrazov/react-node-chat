@@ -4,7 +4,8 @@ import * as actions from '../../actions';
 
 class Signout extends Component {
   componentWillMount() {
-    this.props.signoutUser();
+    const { signoutUser, socket } = this.props;
+    signoutUser(socket);
   }
 
   render() {
@@ -14,4 +15,10 @@ class Signout extends Component {
   }
 }
 
-export default connect(null, actions)(Signout);
+function mapStateToProps (state) {
+  return {
+    socket: state.auth.socket
+  };
+}
+
+export default connect(mapStateToProps, actions)(Signout);

@@ -5,23 +5,15 @@ import * as actions from '../../actions';
 
 class Message extends Component {
   componentWillMount () {
-    const { dispatch, connectSocket } = this.props;
+    const { dispatch, connectSocket, socket } = this.props;
     const token = localStorage.getItem('token');
 
-    dispatch(connectSocket(token));
+    dispatch(connectSocket(token, socket));
   }
 
   renderUser(user) {
     return (
-      <div className="card card-block">
-        <h4 className="card-title">{user.name}</h4>
-      </div>
-    );
-  }
-
-  renderUser(user) {
-    return (
-      <div className="card card-block">
+      <div className="card card-block" key={user}>
         <h4 className="card-title">{user}</h4>
       </div>
     );
@@ -32,7 +24,8 @@ class Message extends Component {
 
     return (
       <div className="message-list">
-        {this.props.users.map(this.renderUser)}
+        {Object.keys(this.props.users).map(key =>
+          this.renderUser(this.props.users[key]))}
       </div>
     );
   }

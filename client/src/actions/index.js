@@ -48,14 +48,17 @@ export function signinUser ({ username, password }, history) {
   };
 }
 
-export function connectSocket (token) {
+export function connectSocket (token, socket) {
   return function (dispatch) {
-    let socket = io.connect(':9494', {
-      query: 'token=' + token
-    });
 
-    socket.on('users', users =>
-      dispatch(updateUserList(users)));
+    if (!socket) {
+      socket = io.connect(':9494', {
+        query: 'token=' + token
+      });
+
+      socket.on('users', users =>
+        dispatch(updateUserList(users)));
+    }
 
     dispatch({
       type: CONNECT_SOCKET,
@@ -76,9 +79,13 @@ export function authError (error) {
   };
 }
 
-export function signoutUser () {
+export function signoutUser (socket) {
   // Actions generally return an object but when we use redux-thunk we return a function that allows us to use the dispatch method
   localStorage.removeItem('token');
+
+  if (socket) {
+    socket.close();
+  }
 
   return {
     type: UNAUTH_USER
