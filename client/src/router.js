@@ -6,6 +6,6 @@ const Routes = () => (
   <Router>
     <App />
   </Router>
-)
+);
 
 export default Routes;

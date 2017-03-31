@@ -66,7 +66,7 @@ export function connectSocket (token) {
       type: CONNECT_SOCKET,
       payload: socket
     };
-  }
+  };
 }
 
 export function authError (error) {
@@ -98,8 +98,6 @@ export function fetchUserList (socket) {
 }
 
 export function updateUserList (users) {
-  console.log('inside update user list', users);
-
   return {
     type: RECEIVE_USERS,
     payload: users
