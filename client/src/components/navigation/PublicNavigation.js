@@ -9,6 +9,9 @@ class PublicNavigation extends Component {
           <li className="nav-item active" key={1}>
             <Link to='/signin' className="nav-link">Sign in</Link>
           </li>
+          <li className="nav-item active" key={2}>
+            <Link to='/signup' className="nav-link">Sign up</Link>
+          </li>
         </ul>
       </div>
     );

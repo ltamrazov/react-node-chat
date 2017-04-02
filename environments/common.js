@@ -1,8 +1,8 @@
 const webpack = require('webpack'),
   path = require('path'),
-  ExtractTextPlugin = require("extract-text-webpack-plugin"),
+  ExtractTextPlugin = require('extract-text-webpack-plugin'),
   HTMLWebpackPlugin = require('html-webpack-plugin'),
-  CopyWebpackPlugin = require("copy-webpack-plugin"),
+  CopyWebpackPlugin = require('copy-webpack-plugin'),
   fs = require('fs');
 
 const clientPath = path.resolve(__dirname, '..', 'client');
@@ -29,7 +29,7 @@ const componentAliases =
       )
       .forEach(fullPath =>
         aliases[path.basename(fullPath, path.extname(fullPath))] = fullPath
-      )
+      );
 
     return aliases;
   }, {}
@@ -72,8 +72,8 @@ module.exports = {
         test: /\.scss/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: "css-loader!sass-loader",
-        }),
+          use: 'css-loader!sass-loader'
+        })
       }
     ]
   },
@@ -100,7 +100,7 @@ module.exports = {
     ),
 
     new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
 
     new webpack.optimize.CommonsChunkPlugin({

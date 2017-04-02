@@ -10,16 +10,11 @@
       padding: 10px;
       border-bottom: 1px solid #444;
 
-      &:nth-child(2) {
-        background-color: #EEE;
-      }
-
       a {
         &.user-link {
           color: $primary-color;
           line-height: 40px;
           font-size: 16px;
-          text-transform: uppercase;
 
           .user-avatar {
             display: inline-block;
@@ -31,6 +26,21 @@
             border-radius: 50%;
             margin-right: 20px;
             vertical-align: middle;
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        background-color: #EEE;
+
+        a {
+          &.user-link {
+            .user-avatar {
+              background: url(/images/male_avatar.png);
+              background-position: center;
+              background-size: 100%;
+              border-radius: 50%;
+            }
           }
         }
       }

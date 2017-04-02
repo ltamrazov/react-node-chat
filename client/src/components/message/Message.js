@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import UserList from 'UserList';
+import ChatTemplate from 'ChatTemplate';
 import * as actions from '../../actions';
 
 class Message extends Component {
@@ -12,24 +12,23 @@ class Message extends Component {
     dispatch(connectSocket(token, socket));
   }
 
-  renderUser(user) {
-    const username = localStorage.getItem('username');
-    if (username !== user) {
-      return (
-        <UserList
-          user={user}
-          key={user}
-        />
-      );
-    }
+  renderMessage (message) {
+    return (
+      <ChatTemplate
+        message={message}
+        key={message}
+      />
+    );
   }
 
   render () {
+    const messageList = Object.keys(this.props.messages);
+
     return (
       <div className="message-list">
         <ul>
-          {Object.keys(this.props.users).map(key =>
-            this.renderUser(this.props.users[key]))}
+          {messageList.map(key =>
+            this.renderMessage(this.props.messages[key]))}
         </ul>
       </div>
     );
@@ -39,7 +38,7 @@ class Message extends Component {
 function mapStateToProps (state) {
   return {
     socket: state.auth.socket,
-    users: state.users
+    messages: state.messages
   };
 }
 

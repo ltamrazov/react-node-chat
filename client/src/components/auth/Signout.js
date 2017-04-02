@@ -5,13 +5,13 @@ import * as actions from '../../actions';
 class Signout extends Component {
   componentWillMount() {
     const { signoutUser, socket } = this.props;
-    signoutUser(socket);
+    this.props.signoutUser(socket);
   }
 
   render() {
     return (
       <div>You have successfully signed out</div>
-    )
+    );
   }
 }
 

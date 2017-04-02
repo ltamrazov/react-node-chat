@@ -33,7 +33,7 @@ export function signinUser ({ username, password }, history) {
         });
 
         // - redirect to the route '/message'
-        history.push('/message');
+        history.push('/userlist');
 
         return {
           type: AUTH_USER,
@@ -51,7 +51,6 @@ export function signinUser ({ username, password }, history) {
 
 export function connectSocket (token, socket) {
   return function (dispatch) {
-
     if (!socket) {
       socket = io.connect(':9494', {
         query: 'token=' + token
@@ -90,6 +89,36 @@ export function signoutUser (socket) {
 
   return {
     type: UNAUTH_USER
+  };
+}
+
+export function signupUser ({ email, password }, history) {
+  return function (dispatch) {
+    axios.post(`${ROOT_URL}/signup`, { email, password })
+      .then(response => {
+        const token = response.data.token;
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', email);
+
+        dispatch(connectSocket(token));
+
+        dispatch({
+          type: AUTH_USER,
+          payload: token
+        });
+
+        // - redirect to the route '/message'
+        history.push('/userlist');
+
+        return {
+          type: AUTH_USER,
+          payload: token
+        };
+      })
+      .catch(response => {
+        dispatch(authError(response.response.data.error));
+      });
   };
 }
 
