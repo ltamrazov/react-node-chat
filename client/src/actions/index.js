@@ -12,7 +12,7 @@ import io from 'socket.io-client';
 // Need to update the below with the API rppt URL
 const ROOT_URL = 'http://localhost:9494';
 
-export function authenticate(token) {
+export function authenticate (token) {
   return {
     type: AUTH_USER,
     payload: token
@@ -83,7 +83,7 @@ export function signoutUser () {
     return dispatch({
       type: UNAUTH_USER
     });
-  }
+  };
 }
 
 export function signupUser ({ email, password }) {

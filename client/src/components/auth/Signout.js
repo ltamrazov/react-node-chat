@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 class Signout extends Component {
-  componentWillMount() {
+  componentWillMount () {
     this.props.signOut();
   }
 
-  render() {
+  render () {
     return (
       <div>You have successfully signed out</div>
     );

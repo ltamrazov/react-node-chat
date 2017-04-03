@@ -3,17 +3,8 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
-const renderField = ({ input, placeholder, type, className, meta: { touched, error, warning }}) => (
-  <div>
-    <input
-      {...input}
-      placeholder={placeholder}
-      type={type}
-      className={className}
-    />
-  {touched && ((error && <span className="alert alert-danger">{error}</span>) || (warning && <span className="alert alert-danger">{warning}</span>))}
-  </div>
-);
+import { required, email } from '../../utils/validator';
+import { renderField } from '../../templates/FormInput';
 
 class Signin extends Component {
   constructor(props) {
@@ -47,9 +38,7 @@ class Signin extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
-    const required = value => value ? undefined : 'This is a required field';
-    const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined;
+    const { handleSubmit, submitting } = this.props;
 
     return (
       <div className="signin-section">
@@ -79,7 +68,7 @@ class Signin extends Component {
             </div>
           </fieldset>
           {this.renderError()}
-          <button className="btn btn-primary">Sign in</button>
+          <button className="btn btn-primary" disabled={submitting}>Sign in</button>
         </form>
       </div>
     );

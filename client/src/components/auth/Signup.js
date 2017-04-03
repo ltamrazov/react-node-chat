@@ -3,13 +3,8 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
-const renderField = ({ input, placeholder, type, className, meta: { touched, error, warning } }) => (
-  <div>
-    <label>{placeholder}:</label>
-    <input {...input} placeholder={placeholder} type={type} className={className} />
-    {touched && ((error && <span className="alert-danger">{error}</span>) || (warning && <span className="alert-danger">{warning}</span>))}
-  </div>
-);
+import { required, email } from '../../utils/validator';
+import { renderField } from '../../templates/FormInput';
 
 class Signup extends Component {
   constructor(props) {
@@ -45,13 +40,6 @@ class Signup extends Component {
 
   render () {
     const { handleSubmit } = this.props;
-    const required = value => value ? undefined : 'Required';
-    const minValue = min => value =>
-      value && value.length < min ? `Must be at least ${min}` : undefined;
-    const minValuePwd = minValue(8);
-    const email = value =>
-      value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-      ? 'Invalid email address' : undefined;
 
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
@@ -62,7 +50,7 @@ class Signup extends Component {
             type="text"
             placeholder="Email"
             className="form-control"
-            validate={[ required, email ]}
+            validate={[ required ]}
           />
         </fieldset>
         <fieldset className="form-group">
@@ -72,7 +60,7 @@ class Signup extends Component {
             type="password"
             placeholder="Password"
             className="form-control"
-            validate={[ required, minValuePwd ]}
+            validate={[ required ]}
           />
         </fieldset>
         <fieldset className="form-group">
@@ -82,7 +70,7 @@ class Signup extends Component {
             type="password"
             placeholder="Confirm Password"
             className="form-control"
-            validate={[ required, minValuePwd ]}
+            validate={[ required ]}
           />
         </fieldset>
         {this.renderAlert()}
