@@ -16,7 +16,7 @@ class UserList extends Component {
     const { dispatch, connectSocket, socket } = this.props;
     const token = localStorage.getItem('token');
 
-    dispatch(connectSocket(token, socket));
+    dispatch(connectSocket(token));
   }
 
   handleClick (element) {

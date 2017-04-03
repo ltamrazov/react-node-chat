@@ -9,7 +9,7 @@ class Message extends Component {
     const { dispatch, connectSocket, socket } = this.props;
     const token = localStorage.getItem('token');
 
-    dispatch(connectSocket(token, socket));
+    dispatch(connectSocket(token));
   }
 
   renderMessage (message) {
@@ -22,7 +22,7 @@ class Message extends Component {
   }
 
   render () {
-    const messageList = Object.keys(this.props.messages);
+    const messageList = Object.keys(this.props.messages || {});
 
     return (
       <div className="message-list">

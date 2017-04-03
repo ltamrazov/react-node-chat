@@ -12,9 +12,25 @@ const renderField = ({ input, placeholder, type, className, meta: { touched, err
 );
 
 class Signup extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
   handleFormSubmit (formProps) {
     // Call action creator to sign up the user
-    this.props.signupUser(formProps);
+    this.props.signUp(formProps)
+      .then(() => {
+        if (this.props.token) {
+          this.context.router.history.push('/userlist');
+        }
+      }
+    );
   }
 
   renderAlert () {
@@ -38,7 +54,7 @@ class Signup extends Component {
       ? 'Invalid email address' : undefined;
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <fieldset className="form-group">
           <Field
             name="email"
@@ -81,7 +97,16 @@ const form = reduxForm({
 });
 
 function mapStateToProps (state) {
-  return { errorMessage: state.auth.error };
+  return {
+    errorMessage: state.auth.error,
+    token: state.auth.token
+  };
 }
 
-export default connect(mapStateToProps, actions)(form(Signup));
+function mapDispatchToProps(dispatch) {
+  return {
+    signUp: form => dispatch(actions.signupUser(form))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(form(Signup));

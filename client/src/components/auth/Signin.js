@@ -27,7 +27,13 @@ class Signin extends Component {
   }
 
   handleFormSubmit({ username, password }) {
-    this.props.signinUser({ username, password }, this.context.router.history);
+    this.props.signIn({ username, password })
+      .then(() => {
+        if (this.props.token) {
+          this.context.router.history.push('/userlist');
+        }
+      }
+    );
   }
 
   renderError() {
@@ -47,7 +53,7 @@ class Signin extends Component {
 
     return (
       <div className="signin-section">
-        <form className="signin-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <form className="signin-form" onSubmit={handleSubmit(this.handleFormSubmit)}>
           <fieldset className="form-group">
             <div>
               <Field
@@ -85,7 +91,16 @@ const form = reduxForm({
 });
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
+  return {
+    errorMessage: state.auth.error,
+    token: state.auth.token
+  };
 };
 
-export default connect(mapStateToProps, actions)(form(Signin));
+function mapDispatchToProps(dispatch) {
+  return {
+    signIn: credentials => dispatch(actions.signinUser(credentials))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(form(Signin));
