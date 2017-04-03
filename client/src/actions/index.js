@@ -97,13 +97,10 @@ export function signupUser ({ email, password }) {
 
         dispatch(connectSocket(token));
 
-        return dispatch({
-          type: AUTH_USER,
-          payload: token
-        });
+        return dispatch(authenticate(token));
       })
       .catch(response =>
-        return dispatch(authError(response.response.data))
+        dispatch(authError(response.response.data))
       );
   };
 }
