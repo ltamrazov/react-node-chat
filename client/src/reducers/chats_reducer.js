@@ -13,16 +13,16 @@ export default function (state = {}, action) {
 
   switch (action.type) {
     case CHAT_REQUESTED:
-      newState[room] = { users: [ user ] };
+      newState[room] = { users: [ user ], messages: [] };
       return newState;
     case CHAT_STARTED:
       newState[room] = { users, messages: [] };
       return newState;
     case MESSAGE_SENT:
-      newState[room].messages.concat({ from,  message });
+      newState[room].messages = newState[room].messages.concat({ from, message });
       return newState;
     case MESSAGE_RECEIVED:
-      newState[room].messages.concat({ from, message });
+      newState[room].messages = newState[room].messages.concat({ from, message });
       return newState;
     case USER_LEFT:
       newState[room].users = newState[room].users.filter(username => username != user);
