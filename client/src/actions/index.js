@@ -5,7 +5,13 @@ import {
   AUTH_ERROR,
   CONNECT_SOCKET,
   FETCH_USER,
-  RECEIVE_USERS
+  RECEIVE_USERS,
+  CHAT_REQUESTED,
+  CHAT_STARTED,
+  MESSAGE_SENT,
+  MESSAGE_RECEIVED,
+  USER_LEFT,
+  LEAVE_ROOM
 } from './types';
 import io from 'socket.io-client';
 
@@ -55,6 +61,15 @@ export function connectSocket (token) {
 
       socket.on('users', users =>
         dispatch(updateUserList(users)));
+
+      socket.on('chat_ready', (...data) =>
+        dispatch(chatStarted(...data)));
+
+      socket.on('new_msg', data =>
+        dispatch(receiveMessage(...data)));
+
+      socket.on('user_left', data =>
+        dispatch(userLeft(...data)));
     }
 
     return dispatch({
@@ -121,5 +136,70 @@ export function updateUserList (users) {
   return {
     type: RECEIVE_USERS,
     payload: users
+  };
+}
+
+export function requestChat (user) {
+  return function (dispatch, getState) {
+    const { socket } = getState();
+
+    socket.emit('chat_request', user, () =>
+      dispatch({
+        type: CHAT_REQUESTED,
+        payload: { user }
+      })
+    );
+  };
+}
+
+export function chatStarted (room, users) {
+  //TODO: add username to the store
+  return function (dispatch, getState) {
+    const { username } = getState();
+    return {
+      type: CHAT_STARTED,
+      payload: { room, users: users.filter(user => user != username) }
+    };
+  }
+}
+
+export function sendMessage (room, message) {
+  //TODO: add username to the store
+  return function (dispatch, getState) {
+    const { socket, username } = getState();
+
+    socket.emit('new_msg', room, message, username, () =>
+      dispatch({
+        type: MESSAGE_SENT,
+        payload: { room, message, from: username }
+      })
+    );
+  };
+}
+
+export function receiveMessage (room, message, from) {
+  return {
+    type: MESSAGE_RECEIVED,
+    payload: { room, message, from }
+  };
+}
+
+export function userLeft (user, room) {
+  return {
+    type: USER_LEFT,
+    payload: { user, room }
+  };
+}
+
+export function leaveRoom (room) {
+  return function (dispatch, getState) {
+    const { socket } = getState();
+
+    socket.emit('user_left', room, () =>
+      dispatch({
+        type: LEAVE_ROOM,
+        payload: { room }
+      })
+    );
   };
 }
