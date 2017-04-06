@@ -6,9 +6,8 @@ import UserListTemplate from 'UserListTemplate';
 import * as actions from '../../actions';
 
 class UserList extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
-
     this.userClick = this.userClick.bind(this);
   }
 
@@ -18,9 +17,12 @@ class UserList extends Component {
     dispatch(connectSocket(token));
   }
 
-  userClick (user) {
-    console.log('clicked', user);
-    // this.props.createRoom();
+  userClick (element, user) {
+    element.preventDefault();
+
+    const { dispatch, requestChat } = this.props;
+
+    dispatch(requestChat(user));
   }
 
   renderUser (user) {
@@ -28,16 +30,9 @@ class UserList extends Component {
 
     if (username !== user) {
       return (
-        <li key={user}>
-          <Link
-            to={`message/${user}`}
-            className='user-link'
-            onClick={this.userClick(user)}
-          >
-            <span className="user-avatar"></span>
-            {user}
-          </Link>
-        </li>
+        <UserListTemplate key={user} user={user} userClick={(ele) => {
+          this.userClick(ele, user);
+        }} />
       );
     }
   }

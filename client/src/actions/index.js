@@ -54,6 +54,8 @@ export function connectSocket (token) {
   return function (dispatch, getState) {
     let { socket } = getState();
 
+    console.log('socket in connect socket: ', socket);
+
     if (!socket) {
       socket = io.connect(':9494', {
         query: 'token=' + token
@@ -141,7 +143,9 @@ export function updateUserList (users) {
 
 export function requestChat (user) {
   return function (dispatch, getState) {
-    const { socket } = getState();
+    const { socket } = getState().auth;
+
+    console.log('socket in request chat: ', socket);
 
     socket.emit('chat_request', user, () =>
       dispatch({
@@ -157,9 +161,9 @@ export function chatStarted (room, users) {
     const { username } = getState();
     return {
       type: CHAT_STARTED,
-      payload: { room, users: users.filter(user => user != username) }
+      payload: { room, users: users.filter(user => user !== username) }
     };
-  }
+  };
 }
 
 export function sendMessage (room, message) {

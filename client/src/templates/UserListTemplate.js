@@ -3,14 +3,19 @@ import { Link } from 'react-router-dom';
 
 class UserList extends Component {
   render () {
+    const user = this.props.user;
+
     return (
-      <li key={this.props.user}>
+      <li key={user}>
         <Link
-          to='/chat'
+          to={`message/${user}`}
           className='user-link'
+          onClick={(ele) => {
+            this.props.userClick(ele, user);
+          }}
         >
           <span className="user-avatar"></span>
-          {this.props.user}
+          {user}
         </Link>
       </li>
     );
