@@ -6,8 +6,7 @@ import * as actions from '../../actions';
 
 class Message extends Component {
   componentWillMount () {
-    const { dispatch, connectSocket, socket } = this.props;
-    const token = localStorage.getItem('token');
+    const { dispatch, connectSocket, token } = this.props;
 
     dispatch(connectSocket(token));
   }
@@ -37,7 +36,7 @@ class Message extends Component {
 
 function mapStateToProps (state) {
   return {
-    socket: state.auth.socket,
+    token: state.auth.token,
     messages: state.messages
   };
 }

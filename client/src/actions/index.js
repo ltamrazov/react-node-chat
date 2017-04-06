@@ -18,10 +18,10 @@ import io from 'socket.io-client';
 // Need to update the below with the API rppt URL
 const ROOT_URL = 'http://localhost:9494';
 
-export function authenticate (token) {
+export function authenticate (token, username) {
   return {
     type: AUTH_USER,
-    payload: token
+    payload: { token, username }
   };
 }
 
@@ -40,7 +40,7 @@ export function signinUser ({ username, password }) {
         // - Update state to indicate user is authenticated
         dispatch(connectSocket(token));
 
-        return dispatch(authenticate(token));
+        return dispatch(authenticate(token, username));
       })
       .catch(response =>
         // If request is bad...
@@ -112,7 +112,7 @@ export function signupUser ({ email, password }) {
 
         dispatch(connectSocket(token));
 
-        return dispatch(authenticate(token));
+        return dispatch(authenticate(token, email));
       })
       .catch(response =>
         dispatch(authError(response.response.data))
@@ -153,7 +153,6 @@ export function requestChat (user) {
 }
 
 export function chatStarted (room, users) {
-  //TODO: add username to the store
   return function (dispatch, getState) {
     const { username } = getState();
     return {
@@ -164,7 +163,6 @@ export function chatStarted (room, users) {
 }
 
 export function sendMessage (room, message) {
-  //TODO: add username to the store
   return function (dispatch, getState) {
     const { socket, username } = getState();
 

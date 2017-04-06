@@ -14,11 +14,15 @@ import { AUTH_USER } from './actions/types';
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(allReducers);
 const token = localStorage.getItem('token');
+const username = localStorage.getItem('username');
 
 // If we have a token, consider user to be logged in
 if (token) {
   // we need to update the application state
-  store.dispatch({ type: AUTH_USER});
+  store.dispatch({
+    type: AUTH_USER,
+    payload: { token, username }
+  });
 }
 
 ReactDOM.render(

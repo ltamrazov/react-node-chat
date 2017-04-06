@@ -9,32 +9,30 @@ class UserList extends Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
+    this.userClick = this.userClick.bind(this);
   }
 
   componentWillMount () {
-    const { dispatch, connectSocket, socket } = this.props;
-    const token = localStorage.getItem('token');
+    const { dispatch, connectSocket, token } = this.props;
 
     dispatch(connectSocket(token));
   }
 
-  handleClick (element) {
-    element.preventDefault();
-    console.log('clicked', element);
+  userClick (user) {
+    console.log('clicked', user);
     // this.props.createRoom();
   }
 
   renderUser (user) {
-    const username = localStorage.getItem('username');
+    const username = this.props.username;
 
     if (username !== user) {
       return (
         <li key={user}>
           <Link
-            to='#'
+            to={`message/${user}`}
             className='user-link'
-            onClick={this.handleClick}
+            onClick={this.userClick(user)}
           >
             <span className="user-avatar"></span>
             {user}
@@ -68,7 +66,8 @@ class UserList extends Component {
 
 function mapStateToProps (state) {
   return {
-    socket: state.auth.socket,
+    token: state.auth.token,
+    username: state.auth.username,
     users: state.users
   };
 }

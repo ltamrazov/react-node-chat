@@ -20,7 +20,7 @@ const App = ({ children }) => {
         <Route path="/signup" component={Signup} />
         <Route path="/signout" component={Signout} />
         <Route path="/userlist" component={RequireAuth(UserList)} />
-        <Route path="/message" component={RequireAuth(Message)} />
+        <Route path="/message/:user" component={RequireAuth(Message)} />
       </div>
     </div>
   );
