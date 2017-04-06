@@ -1,6 +1,7 @@
 import {
   AUTH_USER,
   CONNECT_SOCKET,
+  CONNECTING_SOCKET,
   UNAUTH_USER,
   AUTH_ERROR
 } from '../actions/types';
@@ -10,7 +11,9 @@ export default function (state = {}, action) {
     case AUTH_USER:
       return { ...state, error: '', ...action.payload, authenticated: true };
     case CONNECT_SOCKET:
-      return { ...state, error: '', socket: action.payload };
+      return { ...state, error: '', socket: action.payload, connecting: false };
+    case CONNECTING_SOCKET:
+      return { ...state, error: '', connecting: true };
     case UNAUTH_USER:
       return { ...state, error: '', authenticated: false };
     case AUTH_ERROR:

@@ -4,6 +4,7 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   CONNECT_SOCKET,
+  CONNECTING_SOCKET,
   FETCH_USER,
   RECEIVE_USERS,
   CHAT_REQUESTED,
@@ -23,6 +24,13 @@ export function authenticate (token, username) {
     type: AUTH_USER,
     payload: { token, username }
   };
+}
+
+export function socketConnecting () {
+  return {
+    type: CONNECTING_SOCKET,
+    payload: true
+  }
 }
 
 export function signinUser ({ username, password }) {
@@ -52,11 +60,11 @@ export function signinUser ({ username, password }) {
 
 export function connectSocket (token) {
   return function (dispatch, getState) {
-    let { socket } = getState();
+    let { socket, connecting } = getState().auth;
 
     console.log('socket in connect socket: ', socket);
 
-    if (!socket) {
+    if (!socket && !connecting) {
       socket = io.connect(':9494', {
         query: 'token=' + token
       });
@@ -72,6 +80,10 @@ export function connectSocket (token) {
 
       socket.on('user_left', data =>
         dispatch(userLeft(...data)));
+    }
+    else if (connecting) {
+      // should we return a promise for this action and attach to socket.once('connect', ...) ?
+      return;
     }
 
     return dispatch({
@@ -90,7 +102,7 @@ export function authError (error) {
 
 export function signoutUser () {
   return function (dispatch, getState) {
-    const { socket } = getState();
+    const { socket } = getState().auth;
     localStorage.removeItem('token');
 
     if (socket) {
@@ -158,7 +170,7 @@ export function requestChat (user) {
 
 export function chatStarted (room, users) {
   return function (dispatch, getState) {
-    const { username } = getState();
+    const { username } = getState().auth;
     return {
       type: CHAT_STARTED,
       payload: { room, users: users.filter(user => user !== username) }
@@ -168,7 +180,7 @@ export function chatStarted (room, users) {
 
 export function sendMessage (room, message) {
   return function (dispatch, getState) {
-    const { socket, username } = getState();
+    const { socket, username } = getState().auth;
 
     socket.emit('new_msg', room, message, username, () =>
       dispatch({
@@ -195,7 +207,7 @@ export function userLeft (user, room) {
 
 export function leaveRoom (room) {
   return function (dispatch, getState) {
-    const { socket } = getState();
+    const { socket } = getState().auth;
 
     socket.emit('user_left', room, () =>
       dispatch({

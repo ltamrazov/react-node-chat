@@ -9,6 +9,7 @@ import allReducers from './reducers';
 import Routes from './router';
 
 import { AUTH_USER } from './actions/types';
+import { connectSocket } from './actions';
 
 // Variable store for loading all reducers
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
@@ -23,6 +24,8 @@ if (token) {
     type: AUTH_USER,
     payload: { token, username }
   });
+
+  store.dispatch(connectSocket(token));
 }
 
 ReactDOM.render(
