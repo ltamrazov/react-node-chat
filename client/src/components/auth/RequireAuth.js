@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
 
 export default function(ComposedComponent) {
   class Authentication extends Component {
@@ -33,10 +32,9 @@ export default function(ComposedComponent) {
   function mapStateToProps(state) {
     return {
       authenticated: state.auth.authenticated,
-      socket: state.auth.socket,
       connecting: state.auth.connecting
     };
   }
 
-  return connect(mapStateToProps, actions)(Authentication);
+  return connect(mapStateToProps)(Authentication);
 }

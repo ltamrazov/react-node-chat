@@ -161,12 +161,12 @@ export function requestChat (user) {
 
     console.log('socket in request chat: ', socket);
 
-    socket.emit('chat_request', user, () =>
-      dispatch({
-        type: CHAT_REQUESTED,
-        payload: { user }
-      })
-    );
+    socket.emit('chat_request', user);
+
+    return dispatch({
+      type: CHAT_REQUESTED,
+      payload: { user }
+    });
   };
 }
 
@@ -184,12 +184,12 @@ export function sendMessage (room, message) {
   return function (dispatch, getState) {
     const { socket, username } = getState().auth;
 
-    socket.emit('new_msg', room, message, username, () =>
-      dispatch({
-        type: MESSAGE_SENT,
-        payload: { room, message, from: username }
-      })
-    );
+    socket.emit('new_msg', room, message, username);
+
+    return dispatch({
+      type: MESSAGE_SENT,
+      payload: { room, message, from: username }
+    });
   };
 }
 
