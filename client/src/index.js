@@ -25,7 +25,7 @@ if (token) {
     payload: { token, username }
   });
 
-  store.dispatch(connectSocket(token));
+  store.dispatch(connectSocket());
 }
 
 ReactDOM.render(

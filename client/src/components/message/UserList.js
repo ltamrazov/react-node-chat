@@ -11,12 +11,6 @@ class UserList extends Component {
     this.userClick = this.userClick.bind(this);
   }
 
-  componentWillMount () {
-    const { dispatch, connectSocket, token } = this.props;
-
-    dispatch(connectSocket(token));
-  }
-
   userClick (element, user) {
     element.preventDefault();
 
@@ -61,7 +55,6 @@ class UserList extends Component {
 
 function mapStateToProps (state) {
   return {
-    token: state.auth.token,
     username: state.auth.username,
     users: state.users
   };

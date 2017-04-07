@@ -11,9 +11,9 @@ export default function (state = {}, action) {
     case AUTH_USER:
       return { ...state, error: '', ...action.payload, authenticated: true };
     case CONNECT_SOCKET:
-      return { ...state, error: '', socket: action.payload, connecting: false };
+      return { ...state, error: '', ...action.payload };
     case CONNECTING_SOCKET:
-      return { ...state, error: '', connecting: true };
+      return { ...state, error: '', connecting: action.payload };
     case UNAUTH_USER:
       return { ...state, error: '', authenticated: false };
     case AUTH_ERROR:

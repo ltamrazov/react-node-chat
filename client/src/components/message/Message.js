@@ -5,12 +5,6 @@ import ChatTemplate from 'ChatTemplate';
 import * as actions from '../../actions';
 
 class Message extends Component {
-  componentWillMount () {
-    const { dispatch, connectSocket, token } = this.props;
-
-    dispatch(connectSocket(token));
-  }
-
   renderMessage (message) {
     return (
       <ChatTemplate
@@ -36,7 +30,6 @@ class Message extends Component {
 
 function mapStateToProps (state) {
   return {
-    token: state.auth.token,
     messages: state.messages
   };
 }

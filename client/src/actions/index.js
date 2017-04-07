@@ -26,10 +26,10 @@ export function authenticate (token, username) {
   };
 }
 
-export function socketConnecting () {
+export function socketConnecting (connecting) {
   return {
     type: CONNECTING_SOCKET,
-    payload: true
+    payload: connecting
   }
 }
 
@@ -46,9 +46,9 @@ export function signinUser ({ username, password }) {
 
         // If request is good...
         // - Update state to indicate user is authenticated
-        dispatch(connectSocket(token));
+        dispatch(authenticate(token, username));
 
-        return dispatch(authenticate(token, username));
+        return dispatch(connectSocket());
       })
       .catch(response =>
         // If request is bad...
@@ -58,16 +58,22 @@ export function signinUser ({ username, password }) {
   };
 }
 
-export function connectSocket (token) {
+export function connectSocket () {
   return function (dispatch, getState) {
-    let { socket, connecting } = getState().auth;
-
-    console.log('socket in connect socket: ', socket);
+    let { socket, connecting, token } = getState().auth;
 
     if (!socket && !connecting) {
+      dispatch(socketConnecting(true));
+
       socket = io.connect(':9494', {
         query: 'token=' + token
       });
+
+      socket.on('connect_error', error =>
+        console.log(error));
+
+      socket.once('connect', () =>
+        dispatch(socketConnecting(false)));
 
       socket.on('users', users =>
         dispatch(updateUserList(users)));
@@ -81,14 +87,10 @@ export function connectSocket (token) {
       socket.on('user_left', data =>
         dispatch(userLeft(...data)));
     }
-    else if (connecting) {
-      // should we return a promise for this action and attach to socket.once('connect', ...) ?
-      return;
-    }
 
     return dispatch({
       type: CONNECT_SOCKET,
-      payload: socket
+      payload: { socket }
     });
   };
 }
@@ -124,9 +126,9 @@ export function signupUser ({ email, password }) {
         localStorage.setItem('token', token);
         localStorage.setItem('username', email);
 
-        dispatch(connectSocket(token));
+        dispatch(authenticate(token, email));
 
-        return dispatch(authenticate(token, email));
+        return dispatch(connectSocket());
       })
       .catch(response =>
         dispatch(authError(response.response.data))
