@@ -14,9 +14,8 @@ class UserList extends Component {
   userClick (element, user) {
     element.preventDefault();
 
-    const { dispatch, requestChat } = this.props;
-
-    dispatch(requestChat(user));
+    const { requestChat } = this.props;
+    requestChat(user);
   }
 
   renderUser (user) {
@@ -60,4 +59,11 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(UserList);
+function mapDispatchToProps (dispatch) {
+  return {
+    requestChat: user =>
+      dispatch(actions.requestChat(user))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);

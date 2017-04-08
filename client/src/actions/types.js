@@ -10,4 +10,4 @@ export const CHAT_STARTED = 'chat_started';
 export const MESSAGE_SENT = 'message_sent';
 export const MESSAGE_RECEIVED = 'message_received';
 export const USER_LEFT = 'user_left';
-export const LEAVE_ROOM = 'leave_room';
+export const LEAVE_CHAT = 'leave_chat';

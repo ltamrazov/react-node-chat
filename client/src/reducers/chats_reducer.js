@@ -4,7 +4,7 @@ import {
   MESSAGE_SENT,
   MESSAGE_RECEIVED,
   USER_LEFT,
-  LEAVE_ROOM
+  LEAVE_CHAT
 } from '../actions/types';
 
 export default function (state = {}, action) {
@@ -27,9 +27,8 @@ export default function (state = {}, action) {
     case USER_LEFT:
       newState[room].users = newState[room].users.filter(username => username != user);
       return newState;
-    case LEAVE_ROOM:
-      delete newState[room];
-      return newState;
+    case LEAVE_CHAT:
+      return {};
   }
 
   return state;

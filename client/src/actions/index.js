@@ -12,7 +12,7 @@ import {
   MESSAGE_SENT,
   MESSAGE_RECEIVED,
   USER_LEFT,
-  LEAVE_ROOM
+  LEAVE_CHAT
 } from './types';
 import io from 'socket.io-client';
 
@@ -58,40 +58,47 @@ export function signinUser ({ username, password }) {
   };
 }
 
+export function socketConnected (socket) {
+  return {
+    type: CONNECT_SOCKET,
+    payload: { socket }
+  };
+}
+
 export function connectSocket () {
   return function (dispatch, getState) {
     let { socket, connecting, token } = getState().auth;
 
     if (!socket && !connecting) {
-      dispatch(socketConnecting(true));
+      return new Promise((resolve, reject) => {
+        dispatch(socketConnecting(true));
 
-      socket = io.connect(':9494', {
-        query: 'token=' + token
+        socket = io.connect(':9494', {
+          query: 'token=' + token
+        });
+
+        socket.on('connect_error', error => reject);
+
+        socket.once('connect', () => {
+          dispatch(socketConnecting(false));
+          resolve(dispatch(socketConnected(socket)));
+        });
+
+        socket.on('users', users =>
+          dispatch(updateUserList(users)));
+
+        socket.on('chat_ready', (...data) =>
+          dispatch(chatStarted(...data)));
+
+        socket.on('new_msg', data =>
+          dispatch(receiveMessage(...data)));
+
+        socket.on('user_left', data =>
+          dispatch(userLeft(...data)));
       });
-
-      socket.on('connect_error', error =>
-        console.log(error));
-
-      socket.once('connect', () =>
-        dispatch(socketConnecting(false)));
-
-      socket.on('users', users =>
-        dispatch(updateUserList(users)));
-
-      socket.on('chat_ready', (...data) =>
-        dispatch(chatStarted(...data)));
-
-      socket.on('new_msg', data =>
-        dispatch(receiveMessage(...data)));
-
-      socket.on('user_left', data =>
-        dispatch(userLeft(...data)));
     }
 
-    return dispatch({
-      type: CONNECT_SOCKET,
-      payload: { socket }
-    });
+    return dispatch(socketConnected(socket));
   };
 }
 
@@ -108,7 +115,10 @@ export function signoutUser () {
     localStorage.removeItem('token');
 
     if (socket) {
-      socket.close();
+      dispatch(leaveChat()
+      ).then(
+        socket.close()
+      );
     }
 
     return dispatch({
@@ -159,14 +169,14 @@ export function requestChat (user) {
   return function (dispatch, getState) {
     const { socket } = getState().auth;
 
-    console.log('socket in request chat: ', socket);
-
-    socket.emit('chat_request', user);
-
-    return dispatch({
-      type: CHAT_REQUESTED,
-      payload: { user }
-    });
+    return new Promise((resolve, reject) =>
+      socket.emit('chat_request', user, () =>
+        resolve(dispatch({
+          type: CHAT_REQUESTED,
+          payload: { user }
+        }))
+      )
+    );
   };
 }
 
@@ -184,11 +194,13 @@ export function sendMessage (room, message) {
   return function (dispatch, getState) {
     const { socket, username } = getState().auth;
 
-    socket.emit('new_msg', room, message, username);
-
-    return dispatch({
-      type: MESSAGE_SENT,
-      payload: { room, message, from: username }
+    return new Promise((resolve, reject) => {
+      socket.emit('new_msg', room, message, username, () =>
+        resolve(dispatch({
+          type: MESSAGE_SENT,
+          payload: { room, message, from: username }
+        }))
+      );
     });
   };
 }
@@ -207,15 +219,14 @@ export function userLeft (user, room) {
   };
 }
 
-export function leaveRoom (room) {
+export function leaveChat () {
   return function (dispatch, getState) {
-    const { socket } = getState().auth;
+    const { socket, username } = getState().auth;
 
-    socket.emit('user_left', room, () =>
-      dispatch({
-        type: LEAVE_ROOM,
-        payload: { room }
-      })
+    return new Promise((resolve, reject) =>
+      socket.emit('user_left', username, () =>
+        resolve(dispatch({ type: LEAVE_CHAT }))
+      )
     );
   };
 }
