@@ -146,15 +146,18 @@ export function signupUser ({ email, password }) {
   };
 }
 
-export function fetchUserList (socket) {
-  console.log('inside fetch user list');
+export function fetchUserList () {
+  return function (dispatch, getState) {
+    const { socket } = getState.auth();
 
-  socket.emit('users', users =>
-    dispatch(updateUserList(users))
-  );
-
-  return {
-    type: FETCH_USER
+    return new Promise((resolve, reject) =>
+      socket.emit('users', users => {
+        dispatch(updateUserList(users));
+        resolve(dispatch({
+          type: FETCH_USER
+        }));
+      })
+    );
   };
 }
 
