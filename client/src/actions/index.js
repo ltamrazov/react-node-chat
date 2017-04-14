@@ -16,8 +16,8 @@ import {
 } from './types';
 import io from 'socket.io-client';
 
-// Need to update the below with the API rppt URL
-const ROOT_URL = 'http://localhost:9494';
+const API_PORT = 9494;
+const ROOT_URL = `${location.protocol}//${location.hostname}:${API_PORT}`;
 
 export function authenticate (token, username) {
   return {
@@ -73,7 +73,7 @@ export function connectSocket () {
       return new Promise((resolve, reject) => {
         dispatch(socketConnecting(true));
 
-        socket = io.connect(':9494', {
+        socket = io.connect(`:${API_PORT}`, {
           query: 'token=' + token
         });
 
