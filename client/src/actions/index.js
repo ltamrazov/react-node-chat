@@ -113,6 +113,7 @@ export function signoutUser () {
   return function (dispatch, getState) {
     const { socket } = getState().auth;
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
 
     if (socket) {
       dispatch(leaveChat()
