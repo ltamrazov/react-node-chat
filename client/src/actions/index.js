@@ -187,10 +187,10 @@ export function requestChat (user) {
 export function chatStarted (room, users) {
   return function (dispatch, getState) {
     const { username } = getState().auth;
-    return {
+    return dispatch({
       type: CHAT_STARTED,
       payload: { room, users: users.filter(user => user !== username) }
-    };
+    });
   };
 }
 

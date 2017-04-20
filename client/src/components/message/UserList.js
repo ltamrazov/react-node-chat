@@ -11,11 +11,40 @@ class UserList extends Component {
     this.userClick = this.userClick.bind(this);
   }
 
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
   userClick (element, user) {
     element.preventDefault();
 
-    const { requestChat } = this.props;
-    requestChat(user);
+    const { requestChat, chats } = this.props;
+
+    const chatsWithUser = Object.keys(chats).filter(room =>
+      chats[room].users.includes(user)
+    );
+
+    if (!chatsWithUser.length) {
+      requestChat(user);
+    }
+    else {
+      this.context.router.history.push(`/message/${chatsWithUser[0]}`);
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const prevChats = Object.keys(this.props.chats);
+    const currentChats = Object.keys(nextProps.chats);
+
+    if (prevChats.length !== currentChats.length) {
+      const newChats = currentChats.filter(room =>
+        !prevChats.includes(room)
+      );
+
+      if (newChats.length) {
+        this.context.router.history.push(`/message/${newChats[0]}`);
+      }
+    }
   }
 
   renderUser (user) {
@@ -55,7 +84,8 @@ class UserList extends Component {
 function mapStateToProps (state) {
   return {
     username: state.auth.username,
-    users: state.users
+    users: state.users,
+    chats: state.chats
   };
 }
 
