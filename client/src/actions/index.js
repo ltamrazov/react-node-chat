@@ -202,7 +202,7 @@ export function sendMessage (room, message) {
       socket.emit('new_msg', room, message, username, () =>
         resolve(dispatch({
           type: MESSAGE_SENT,
-          payload: { room, message, from: username }
+          payload: { room, message, from: username, read: true, when: new Date().getTime() }
         }))
       );
     });
@@ -212,7 +212,7 @@ export function sendMessage (room, message) {
 export function receiveMessage (room, message, from) {
   return {
     type: MESSAGE_RECEIVED,
-    payload: { room, message, from }
+    payload: { room, message, from, read: false, when: new Date().getTime() }
   };
 }
 

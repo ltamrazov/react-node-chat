@@ -15,13 +15,14 @@ class Message extends Component {
   }
 
   render () {
-    const messageList = Object.keys(this.props.messages || {});
+    const room = this.props.match.params.room;
+    const messageList = this.props.chats[room].messages || [];
 
     return (
       <div className="message-list">
         <ul>
-          {messageList.map(key =>
-            this.renderMessage(this.props.messages[key]))}
+          {messageList.map(message =>
+            this.renderMessage(message))}
         </ul>
       </div>
     );
@@ -30,7 +31,7 @@ class Message extends Component {
 
 function mapStateToProps (state) {
   return {
-    messages: state.messages
+    chats: state.chats
   };
 }
 

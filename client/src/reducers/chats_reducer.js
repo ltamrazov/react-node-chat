@@ -8,7 +8,7 @@ import {
 } from '../actions/types';
 
 export default function (state = {}, action) {
-  const { user, users, room, message, from } = (action.payload || {});
+  const { user, users, room, message, from, read, when } = (action.payload || {});
   let newState = { ...state };
 
   switch (action.type) {
