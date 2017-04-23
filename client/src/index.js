@@ -14,8 +14,8 @@ import { connectSocket } from './actions';
 // Variable store for loading all reducers
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(allReducers);
-const token = localStorage.getItem('token');
-const username = localStorage.getItem('username');
+const token = sessionStorage.getItem('chattoken');
+const username = sessionStorage.getItem('username');
 
 // If we have a token, consider user to be logged in
 if (token) {

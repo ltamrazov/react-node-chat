@@ -19,6 +19,8 @@ export default function (state = {}, action) {
       newState[room] = { users, messages: [] };
       return newState;
     case MESSAGE_SENT:
+      console.log('room', room);
+      console.log('message', message);
       newState[room].messages = newState[room].messages.concat({ from, message });
       return newState;
     case MESSAGE_RECEIVED:

@@ -1,6 +1,6 @@
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
-  ExtractTextPlugin = require("extract-text-webpack-plugin"),
-  ExtractCSS = new ExtractTextPlugin("css/[name].css");
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractCSS = new ExtractTextPlugin('css/[name].css');
 
 module.exports = {
   entry: {
@@ -19,12 +19,10 @@ module.exports = {
     inline: true,
     historyApiFallback: true,
     headers: {'Access-Control-Allow-Origin': '*'},
-    host: '0.0.0.0'
+    host: 'localhost'
   },
 
   plugins: [
     ExtractCSS
-
-
   ]
 };

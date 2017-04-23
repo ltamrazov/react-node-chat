@@ -1,9 +1,9 @@
-const webpack = require('webpack'),
-  path = require('path'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin'),
-  HTMLWebpackPlugin = require('html-webpack-plugin'),
-  CopyWebpackPlugin = require('copy-webpack-plugin'),
-  fs = require('fs');
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const fs = require('fs');
 
 const clientPath = path.resolve(__dirname, '..', 'client');
 

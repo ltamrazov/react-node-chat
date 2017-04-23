@@ -1,0 +1,22 @@
+.new-message-div {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 20%;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .new-message {
+    width: 80%;
+    float: left;
+    height: 40px;
+  }
+
+  .btn {
+    height: 40px;
+    width: 20%;
+  }
+}

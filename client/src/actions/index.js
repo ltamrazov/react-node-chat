@@ -30,7 +30,7 @@ export function socketConnecting (connecting) {
   return {
     type: CONNECTING_SOCKET,
     payload: connecting
-  }
+  };
 }
 
 export function signinUser ({ username, password }) {
@@ -41,8 +41,8 @@ export function signinUser ({ username, password }) {
       .then(response => {
         const token = response.data.token;
         // - Save JWT token
-        localStorage.setItem('token', token);
-        localStorage.setItem('username', username);
+        sessionStorage.setItem('chattoken', token);
+        sessionStorage.setItem('username', username);
 
         // If request is good...
         // - Update state to indicate user is authenticated
@@ -112,8 +112,8 @@ export function authError (error) {
 export function signoutUser () {
   return function (dispatch, getState) {
     const { socket } = getState().auth;
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    sessionStorage.removeItem('chattoken');
+    sessionStorage.removeItem('username');
 
     if (socket) {
       dispatch(leaveChat()
@@ -134,8 +134,8 @@ export function signupUser ({ email, password }) {
       .then(response => {
         const token = response.data.token;
 
-        localStorage.setItem('token', token);
-        localStorage.setItem('username', email);
+        sessionStorage.setItem('chattoken', token);
+        sessionStorage.setItem('username', email);
 
         dispatch(authenticate(token, email));
 
@@ -195,15 +195,18 @@ export function chatStarted (room, users) {
 }
 
 export function sendMessage (room, message) {
+  console.log('send message called');
   return function (dispatch, getState) {
     const { socket, username } = getState().auth;
 
     return new Promise((resolve, reject) => {
+      console.log('action room', room);
       socket.emit('new_msg', room, message, username, () =>
-        resolve(dispatch({
-          type: MESSAGE_SENT,
-          payload: { room, message, from: username, read: true, when: new Date().getTime() }
-        }))
+        console.log('action message', message)
+        // resolve(dispatch({
+        //   type: MESSAGE_SENT,
+        //   payload: { room, message, from: username, read: true, when: new Date().getTime() }
+        // }))
       );
     });
   };
