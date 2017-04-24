@@ -201,12 +201,12 @@ export function sendMessage (room, message) {
 
     return new Promise((resolve, reject) => {
       console.log('action room', room);
+      console.log('action message', message);
       socket.emit('new_msg', room, message, username, () =>
-        console.log('action message', message)
-        // resolve(dispatch({
-        //   type: MESSAGE_SENT,
-        //   payload: { room, message, from: username, read: true, when: new Date().getTime() }
-        // }))
+        resolve(dispatch({
+          type: MESSAGE_SENT,
+          payload: { room, message, from: username, read: true, when: new Date().getTime() }
+        }))
       );
     });
   };

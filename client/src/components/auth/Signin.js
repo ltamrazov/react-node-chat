@@ -7,7 +7,7 @@ import { required, email } from '../../utils/validator';
 import { renderField } from '../../templates/FormInput';
 
 class Signin extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -17,7 +17,7 @@ class Signin extends Component {
     router: React.PropTypes.object
   }
 
-  handleFormSubmit({ username, password }) {
+  handleFormSubmit ({ username, password }) {
     this.props.signIn({ username, password })
       .then(() => {
         if (this.props.token) {
@@ -27,8 +27,8 @@ class Signin extends Component {
     );
   }
 
-  renderError() {
-    if(this.props.errorMessage) {
+  renderError () {
+    if (this.props.errorMessage) {
       return (
         <div className="alert alert-danger">
           {this.props.errorMessage}
@@ -37,7 +37,7 @@ class Signin extends Component {
     }
   }
 
-  render() {
+  render () {
     const { handleSubmit, submitting } = this.props;
 
     return (
@@ -79,14 +79,14 @@ const form = reduxForm({
   form: 'signin'
 });
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     errorMessage: state.auth.error,
     token: state.auth.token
   };
 };
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     signIn: credentials => dispatch(actions.signinUser(credentials))
   };

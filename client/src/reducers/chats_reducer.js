@@ -27,7 +27,7 @@ export default function (state = {}, action) {
       newState[room].messages = newState[room].messages.concat({ from, message });
       return newState;
     case USER_LEFT:
-      newState[room].users = newState[room].users.filter(username => username != user);
+      newState[room].users = newState[room].users.filter(username => username !== user);
       return newState;
     case LEAVE_CHAT:
       return {};

@@ -26,8 +26,7 @@ class UserList extends Component {
 
     if (!chatsWithUser.length) {
       requestChat(user);
-    }
-    else {
+    } else {
       this.context.router.history.push(`/message/${chatsWithUser[0]}`);
     }
   }

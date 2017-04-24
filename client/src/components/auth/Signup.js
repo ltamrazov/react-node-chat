@@ -7,7 +7,7 @@ import { required, email } from '../../utils/validator';
 import { renderField } from '../../templates/FormInput';
 
 class Signup extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -91,7 +91,7 @@ function mapStateToProps (state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     signUp: form => dispatch(actions.signupUser(form))
   };
