@@ -21,10 +21,10 @@ export default function (state = {}, action) {
     case MESSAGE_SENT:
       console.log('room', room);
       console.log('message', message);
-      newState[room].messages = newState[room].messages.concat({ from, message });
+      newState[room].messages = newState[room].messages.concat({ from, message, read, when });
       return newState;
     case MESSAGE_RECEIVED:
-      newState[room].messages = newState[room].messages.concat({ from, message });
+      newState[room].messages = newState[room].messages.concat({ from, message, read, when });
       return newState;
     case USER_LEFT:
       newState[room].users = newState[room].users.filter(username => username !== user);

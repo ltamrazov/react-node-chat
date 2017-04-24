@@ -91,7 +91,7 @@ export function connectSocket () {
           dispatch(chatStarted(...data)));
 
         socket.on('new_msg', data =>
-          dispatch(receiveMessage(...data)));
+          dispatch(receiveMessage(data)));
 
         socket.on('user_left', data =>
           dispatch(userLeft(...data)));
@@ -195,27 +195,40 @@ export function chatStarted (room, users) {
 }
 
 export function sendMessage (room, message) {
-  console.log('send message called');
   return function (dispatch, getState) {
     const { socket, username } = getState().auth;
 
     return new Promise((resolve, reject) => {
-      console.log('action room', room);
-      console.log('action message', message);
-      socket.emit('new_msg', room, message, username, () =>
+      socket.emit('new_msg', {
+          roomId: room,
+          msg: message,
+          from: username
+        }, () =>
         resolve(dispatch({
           type: MESSAGE_SENT,
-          payload: { room, message, from: username, read: true, when: new Date().getTime() }
+          payload: {
+            room,
+            message,
+            from: username,
+            read: true,
+            when: new Date().getTime()
+          }
         }))
       );
     });
   };
 }
 
-export function receiveMessage (room, message, from) {
+export function receiveMessage (data) {
   return {
     type: MESSAGE_RECEIVED,
-    payload: { room, message, from, read: false, when: new Date().getTime() }
+    payload: {
+      room: data.roomId,
+      message: data.msg,
+      from: data.from,
+      read: false,
+      when: new Date().getTime()
+    }
   };
 }
 

@@ -62,7 +62,7 @@ module.exports = function (server) {
 
         // new message. data = {roomId, msg, from}
         socket.on('new_msg', function (data) {
-            io.in(data.roomId).emit(data);
+            io.in(data.roomId).emit('new_msg', data);
         });
 
         // someone in our room has left, clean up rooms.
