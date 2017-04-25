@@ -37,7 +37,7 @@ class UserList extends Component {
 
     if (prevChats.length !== currentChats.length) {
       const newChats = currentChats.filter(room =>
-        !prevChats.includes(room)
+        room !== 'undefined' && !prevChats.includes(room)
       );
 
       if (newChats.length) {
