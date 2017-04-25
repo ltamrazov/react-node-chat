@@ -1,0 +1,49 @@
+.user-list {
+  height: 100%;
+
+  ul {
+    list-style: none;
+    padding-left: 0px;
+
+    li {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #444;
+
+      a {
+        &.user-link {
+          color: $primary-color;
+          line-height: 40px;
+          font-size: 16px;
+
+          .user-avatar {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: url(/images/female_avatar.png);
+            background-position: center;
+            background-size: 100%;
+            border-radius: 50%;
+            margin-right: 20px;
+            vertical-align: middle;
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        background-color: #EEE;
+
+        a {
+          &.user-link {
+            .user-avatar {
+              background: url(/images/male_avatar.png);
+              background-position: center;
+              background-size: 100%;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -70,7 +70,7 @@ class UserList extends Component {
     }
 
     return (
-      <div className="message-list">
+      <div className="user-list">
         <ul>
           {userList.map(key =>
             this.renderUser(this.props.users[key]))}

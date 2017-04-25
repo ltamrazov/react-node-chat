@@ -3,13 +3,11 @@ import React, { Component } from 'react';
 class Chat extends Component {
   render () {
     return (
-      <li
-        key={this.props.message}
-        className={this.props.message}
-      >
-        <p>
+      <li className="message-li" key={this.props.when}>
+        <div className={this.props.userClass}>
           {this.props.message}
-        </p>
+          <span>{this.props.time}</span>
+        </div>
       </li>
     );
   };

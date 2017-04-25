@@ -11,15 +11,6 @@ class Message extends Component {
     this.handleSendMessage = this.handleSendMessage.bind(this);
   }
 
-  renderMessage (message) {
-    return (
-      <ChatTemplate
-        message={message}
-        key={message}
-      />
-    );
-  }
-
   renderSendMessage (room) {
     return (
       <div className='new-message-div'>
@@ -49,29 +40,67 @@ class Message extends Component {
     const { sendMessage } = this.props;
 
     sendMessage(roomId, newMessage);
-    console.log('method dispatched');
+  }
+
+  renderMessage (messageList) {
+    const loggedUser = sessionStorage.getItem('username');
+    const { from, message, read, when } = messageList;
+    let userClass = 'left-msg';
+
+    const a = new Date(when);
+    let hours = a.getHours();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours || 12;
+
+    const time = hours + ':' + (a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes()) + ' ' + ampm;
+
+    if (from === loggedUser) {
+      userClass = 'right-msg';
+    }
+
+    return (
+      <ChatTemplate when={when} time={time} read={read} userClass={userClass} message={message} />
+    );
   }
 
   renderChat () {
     const room = this.props.match.params.room;
-    const messageList = this.props.chats[room].messages || [];
-    let messages = 'No messages found';
+    // const messageList = this.props.chats[room].messages || [];
 
-    // if (messageList.length) {
-    //   <ul>
-    //     {messageList.map(message =>
-    //       this.renderMessage(message))}
-    //   </ul>
-    // }
+    const messageList = [
+      {
+        from: '12345',
+        message: 'sfdsdsfdf',
+        read: false,
+        when: 1493072201405
+      },
+      {
+        from: 'abcdef',
+        message: 'awdwadwdad',
+        read: false,
+        when: 1493073198139
+      }
+    ];
 
-    if (messageList.length) {
-      messages = 'See all your messages here';
+    if (messageList.length < 1) {
+      return (
+        <div className='chat-window'>
+          <div className='chat-history'>
+            No messages found
+          </div>
+          {this.renderSendMessage(room)}
+        </div>
+      );
     }
 
     return (
       <div className='chat-window'>
         <div className='chat-history'>
-          {messages}
+          <ul>
+            {Object.keys(messageList).map(key =>
+              this.renderMessage(messageList[key]))}
+          </ul>
         </div>
 
         {this.renderSendMessage(room)}

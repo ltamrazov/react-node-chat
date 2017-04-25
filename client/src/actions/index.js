@@ -200,10 +200,10 @@ export function sendMessage (room, message) {
 
     return new Promise((resolve, reject) => {
       socket.emit('new_msg', {
-          roomId: room,
-          msg: message,
-          from: username
-        }, () =>
+        roomId: room,
+        msg: message,
+        from: username
+      }, () =>
         resolve(dispatch({
           type: MESSAGE_SENT,
           payload: {
