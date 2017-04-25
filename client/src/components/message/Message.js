@@ -42,7 +42,7 @@ class Message extends Component {
     sendMessage(roomId, newMessage);
   }
 
-  renderMessage (messageList) {
+  renderMessage (messageList, index) {
     const loggedUser = sessionStorage.getItem('username');
     const { from, message, read, when } = messageList;
     let userClass = 'left-msg';
@@ -60,7 +60,7 @@ class Message extends Component {
     }
 
     return (
-      <ChatTemplate when={when} time={time} read={read} userClass={userClass} message={message} />
+      <ChatTemplate key={index} when={when} time={time} read={read} userClass={userClass} message={message} />
     );
   }
 
@@ -98,8 +98,8 @@ class Message extends Component {
       <div className='chat-window'>
         <div className='chat-history'>
           <ul>
-            {Object.keys(messageList).map(key =>
-              this.renderMessage(messageList[key]))}
+            {Object.keys(messageList).map((key, index) =>
+              this.renderMessage(messageList[key], index))}
           </ul>
         </div>
 

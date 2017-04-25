@@ -9,5 +9,6 @@ export const CHAT_REQUESTED = 'chat_requested';
 export const CHAT_STARTED = 'chat_started';
 export const MESSAGE_SENT = 'message_sent';
 export const MESSAGE_RECEIVED = 'message_received';
+export const SENT_MESSAGE_RECEIVED = 'sent_message_received';
 export const USER_LEFT = 'user_left';
 export const LEAVE_CHAT = 'leave_chat';

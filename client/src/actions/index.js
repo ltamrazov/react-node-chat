@@ -11,6 +11,7 @@ import {
   CHAT_STARTED,
   MESSAGE_SENT,
   MESSAGE_RECEIVED,
+  SENT_MESSAGE_RECEIVED,
   USER_LEFT,
   LEAVE_CHAT
 } from './types';
@@ -116,10 +117,8 @@ export function signoutUser () {
     sessionStorage.removeItem('username');
 
     if (socket) {
-      dispatch(leaveChat()
-      ).then(
-        socket.close()
-      );
+      dispatch(leaveChat());
+      socket.close();
     }
 
     return dispatch({
@@ -173,15 +172,12 @@ export function requestChat (user) {
   return function (dispatch, getState) {
     const { socket } = getState().auth;
 
-    return new Promise((resolve, reject) =>
-      socket.emit('chat_request', user, () =>
-        resolve(dispatch({
-          type: CHAT_REQUESTED,
-          payload: { user }
-        }))
-      )
-    );
-  };
+    socket.emit('chat_request', user);
+    return dispatch({
+      type: CHAT_REQUESTED,
+      payload: { user }
+    });
+  }
 }
 
 export function chatStarted (room, users) {
@@ -198,37 +194,43 @@ export function sendMessage (room, message) {
   return function (dispatch, getState) {
     const { socket, username } = getState().auth;
 
-    return new Promise((resolve, reject) => {
-      socket.emit('new_msg', {
-        roomId: room,
-        msg: message,
-        from: username
-      }, () =>
-        resolve(dispatch({
-          type: MESSAGE_SENT,
-          payload: {
-            room,
-            message,
-            from: username,
-            read: true,
-            when: new Date().getTime()
-          }
-        }))
-      );
+    socket.emit('new_msg', {
+      roomId: room,
+      msg: message,
+      from: username
+    });
+
+    return dispatch({
+      type: MESSAGE_SENT,
+      payload: {
+        room,
+        message,
+        from: username,
+        read: true,
+        when: new Date().getTime()
+      }
     });
   };
 }
 
 export function receiveMessage (data) {
-  return {
-    type: MESSAGE_RECEIVED,
-    payload: {
-      room: data.roomId,
-      message: data.msg,
-      from: data.from,
-      read: false,
-      when: new Date().getTime()
-    }
+  return function (dispatch, getState) {
+    const { username } = getState().auth;
+
+    return dispatch(
+      data.from !== username ? {
+        type: MESSAGE_RECEIVED,
+        payload: {
+          room: data.roomId,
+          message: data.msg,
+          from: data.from,
+          read: false,
+          when: new Date().getTime()
+        }
+      } : {
+        type: SENT_MESSAGE_RECEIVED
+      }
+    )
   };
 }
 
@@ -243,10 +245,7 @@ export function leaveChat () {
   return function (dispatch, getState) {
     const { socket, username } = getState().auth;
 
-    return new Promise((resolve, reject) =>
-      socket.emit('user_left', username, () =>
-        resolve(dispatch({ type: LEAVE_CHAT }))
-      )
-    );
+    socket.emit('user_left', username);
+    return dispatch({ type: LEAVE_CHAT });
   };
 }
