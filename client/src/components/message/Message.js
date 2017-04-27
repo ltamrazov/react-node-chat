@@ -9,9 +9,17 @@ class Message extends Component {
     super(props);
 
     this.handleSendMessage = this.handleSendMessage.bind(this);
+
+    this.state = {
+      room: this.props.match.params.room
+    };
   }
 
-  renderSendMessage (room) {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
+  renderSendMessage () {
     return (
       <div className='new-message-div'>
         <input
@@ -23,7 +31,7 @@ class Message extends Component {
         <button
           name='sendMessage'
           id='sendMessage'
-          data-roomId={room}
+          data-roomId={this.state.room}
           className='btn btn-primary send-message'
           onClick={this.handleSendMessage}
         >
@@ -33,13 +41,17 @@ class Message extends Component {
     );
   }
 
-  handleSendMessage () {
-    const roomId = this.props.match.params.room;
-    const newMessage = document.getElementById('newMessage').value;
+  componentWillMount() {
+    if (!this.props.chats.hasOwnProperty(this.state.room)) {
+      this.context.router.history.push('/userlist');
+    }
+  }
 
+  handleSendMessage () {
+    const newMessage = document.getElementById('newMessage').value;
     const { sendMessage } = this.props;
 
-    sendMessage(roomId, newMessage);
+    sendMessage(this.state.room, newMessage);
   }
 
   renderMessage (messageList, index) {
@@ -65,7 +77,6 @@ class Message extends Component {
   }
 
   renderChat () {
-    const room = this.props.match.params.room;
     // const messageList = this.props.chats[room].messages || [];
 
     const messageList = [
@@ -89,7 +100,7 @@ class Message extends Component {
           <div className='chat-history'>
             No messages found
           </div>
-          {this.renderSendMessage(room)}
+          {this.renderSendMessage()}
         </div>
       );
     }
@@ -103,7 +114,7 @@ class Message extends Component {
           </ul>
         </div>
 
-        {this.renderSendMessage(room)}
+        {this.renderSendMessage()}
       </div>
     );
   }

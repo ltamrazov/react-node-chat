@@ -53,7 +53,8 @@ module.exports = {
   },
 
   output: {
-    path: path.join(clientPath, 'dist')
+    path: path.join(clientPath, 'dist'),
+    publicPath: '/'
   },
 
   resolve: {
