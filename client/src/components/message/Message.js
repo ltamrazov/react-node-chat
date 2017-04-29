@@ -77,22 +77,8 @@ class Message extends Component {
   }
 
   renderChat () {
-    // const messageList = this.props.chats[room].messages || [];
-
-    const messageList = [
-      {
-        from: '12345',
-        message: 'sfdsdsfdf',
-        read: false,
-        when: 1493072201405
-      },
-      {
-        from: 'abcdef',
-        message: 'awdwadwdad',
-        read: false,
-        when: 1493073198139
-      }
-    ];
+    const chat = this.props.chats[this.state.room];
+    const messageList = chat && chat.messages || [];
 
     if (messageList.length < 1) {
       return (
