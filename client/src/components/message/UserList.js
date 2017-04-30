@@ -46,12 +46,12 @@ class UserList extends Component {
     }
   }
 
-  renderUser (user) {
+  renderUser (user, index) {
     const username = this.props.username;
 
     if (username !== user) {
       return (
-        <UserListTemplate key={user} user={user} userClick={(ele) => {
+        <UserListTemplate key={index} user={user} userClick={(ele) => {
           this.userClick(ele, user);
         }} />
       );
@@ -72,8 +72,8 @@ class UserList extends Component {
     return (
       <div className="user-list">
         <ul>
-          {userList.map(key =>
-            this.renderUser(this.props.users[key]))}
+          {userList.map((key, index) =>
+            this.renderUser(this.props.users[key], index))}
         </ul>
       </div>
     );

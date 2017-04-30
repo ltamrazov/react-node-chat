@@ -20,6 +20,12 @@
           width: 100%;
           float: left;
 
+          &.display-date {
+            color: #616161;
+            font-size: 12px;
+            font-weight: 700;
+          }
+
           .right-msg, .left-msg {
             float: right;
             text-align: right;

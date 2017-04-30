@@ -27,6 +27,8 @@ class Message extends Component {
           id='newMessage'
           name='newMessage'
           className='new-message'
+          ref='newMessage'
+          onKeyPress={this.clickSendMessage}
         />
         <button
           name='sendMessage'
@@ -48,10 +50,12 @@ class Message extends Component {
   }
 
   handleSendMessage () {
-    const newMessage = document.getElementById('newMessage').value;
+    const newMessage = this.refs.newMessage.value;
     const { sendMessage } = this.props;
 
     sendMessage(this.state.room, newMessage);
+
+    this.refs.newMessage.value = '';
   }
 
   renderMessage (messageList, index) {

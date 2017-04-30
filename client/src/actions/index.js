@@ -177,7 +177,7 @@ export function requestChat (user) {
       type: CHAT_REQUESTED,
       payload: { user }
     });
-  }
+  };
 }
 
 export function chatStarted (room, users) {
@@ -230,7 +230,7 @@ export function receiveMessage (data) {
       } : {
         type: SENT_MESSAGE_RECEIVED
       }
-    )
+    );
   };
 }
 

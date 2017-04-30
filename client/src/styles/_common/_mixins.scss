@@ -17,3 +17,7 @@
 @mixin add-font-transparency($base-color, $amount) {
   color: transparentize($base-color, $amount);
 }
+
+@mixin add-outline-transparency ($base-color, $amount) {
+  outline-color: transparentize($base-color, $amount);
+}

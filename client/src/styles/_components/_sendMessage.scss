@@ -13,6 +13,10 @@
     width: 80%;
     float: left;
     height: 40px;
+
+    &:focus, &:active {
+      @include add-outline-transparency($primary-color, 0.1);
+    }
   }
 
   .btn {
