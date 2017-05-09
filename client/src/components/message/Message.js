@@ -49,6 +49,25 @@ class Message extends Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const prevChats = Object.keys(this.props.chats);
+    const currentChats = Object.keys(nextProps.chats);
+
+    if (prevChats.length !== currentChats.length) {
+      const newChats = currentChats.filter(room =>
+        room !== 'undefined' && !prevChats.includes(room)
+      );
+
+      newChats.forEach(room =>
+        this.newChatStarted({ ...nextProps.chats[room], room })
+      );
+    }
+  }
+
+  newChatStarted (chat) {
+    alert(`new chat ${chat.room} started with ${chat.users.join(', ')}`); //TODO: replace this with something more useful
+  }
+
   handleSendMessage () {
     const newMessage = this.refs.newMessage.value;
     const { sendMessage } = this.props;
