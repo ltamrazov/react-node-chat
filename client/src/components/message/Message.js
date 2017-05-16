@@ -11,7 +11,8 @@ class Message extends Component {
     this.handleSendMessage = this.handleSendMessage.bind(this);
 
     this.state = {
-      room: this.props.match.params.room
+      room: this.props.match.params.room,
+      newChats: []
     };
   }
 
@@ -59,13 +60,17 @@ class Message extends Component {
       );
 
       newChats.forEach(room =>
-        this.newChatStarted({ ...nextProps.chats[room], room })
+        this.setState((prevState, props) => ({
+          newChats: prevState.newChats.concat({ ...nextProps.chats[room], room })
+        }))
       );
     }
   }
 
-  newChatStarted (chat) {
-    alert(`new chat ${chat.room} started with ${chat.users.join(', ')}`); //TODO: replace this with something more useful
+  dismissNewChat (room) {
+    this.setState((prevState, props) => ({
+      newChats: prevState.newChats.filter(chat => chat.room !== room)
+    }));
   }
 
   handleSendMessage () {
