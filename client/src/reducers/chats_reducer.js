@@ -13,9 +13,6 @@ export default function (state = {}, action) {
   let newState = { ...state };
 
   switch (action.type) {
-    case CHAT_REQUESTED:
-      newState[room] = { users: [ user ], messages: [], isNew: true };
-      return newState;
     case CHAT_STARTED:
       newState[room] = { users, messages: [], isNew: true };
       return newState;

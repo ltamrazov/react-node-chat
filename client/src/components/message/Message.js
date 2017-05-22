@@ -46,11 +46,15 @@ class Message extends Component {
   componentWillMount() {
     if (!this.props.chats.hasOwnProperty(this.state.room)) {
       this.context.router.history.push('/userlist');
+      this.setState({ room: null });
     }
   }
 
   componentDidMount() {
-    this.props.dismissNewChat(this.state.room);
+    const { room } = this.state;
+    if (room) {
+      this.props.dismissNewChat(room);
+    }
   }
 
   handleSendMessage () {
