@@ -11,8 +11,7 @@ class Message extends Component {
     this.handleSendMessage = this.handleSendMessage.bind(this);
 
     this.state = {
-      room: this.props.match.params.room,
-      newChats: []
+      room: this.props.match.params.room
     };
   }
 
@@ -50,27 +49,8 @@ class Message extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    const prevChats = Object.keys(this.props.chats);
-    const currentChats = Object.keys(nextProps.chats);
-
-    if (prevChats.length !== currentChats.length) {
-      const newChats = currentChats.filter(room =>
-        room !== 'undefined' && !prevChats.includes(room)
-      );
-
-      newChats.forEach(room =>
-        this.setState((prevState, props) => ({
-          newChats: prevState.newChats.concat({ ...nextProps.chats[room], room })
-        }))
-      );
-    }
-  }
-
-  dismissNewChat (room) {
-    this.setState((prevState, props) => ({
-      newChats: prevState.newChats.filter(chat => chat.room !== room)
-    }));
+  componentDidMount() {
+    this.props.dismissNewChat(this.state.room);
   }
 
   handleSendMessage () {

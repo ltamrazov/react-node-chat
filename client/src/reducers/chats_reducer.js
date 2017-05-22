@@ -4,7 +4,8 @@ import {
   MESSAGE_SENT,
   MESSAGE_RECEIVED,
   USER_LEFT,
-  LEAVE_CHAT
+  LEAVE_CHAT,
+  DISMISS_NEW_CHAT
 } from '../actions/types';
 
 export default function (state = {}, action) {
@@ -13,10 +14,10 @@ export default function (state = {}, action) {
 
   switch (action.type) {
     case CHAT_REQUESTED:
-      newState[room] = { users: [ user ], messages: [] };
+      newState[room] = { users: [ user ], messages: [], isNew: true };
       return newState;
     case CHAT_STARTED:
-      newState[room] = { users, messages: [] };
+      newState[room] = { users, messages: [], isNew: true };
       return newState;
     case MESSAGE_SENT:
       console.log('room', room);
@@ -31,6 +32,9 @@ export default function (state = {}, action) {
       return newState;
     case LEAVE_CHAT:
       return {};
+    case DISMISS_NEW_CHAT:
+      newState[room].isNew = false;
+      return newState;
   }
 
   return state;

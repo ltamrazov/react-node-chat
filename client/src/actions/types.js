@@ -12,3 +12,4 @@ export const MESSAGE_RECEIVED = 'message_received';
 export const SENT_MESSAGE_RECEIVED = 'sent_message_received';
 export const USER_LEFT = 'user_left';
 export const LEAVE_CHAT = 'leave_chat';
+export const DISMISS_NEW_CHAT = 'dismiss_new_chat';

@@ -13,7 +13,8 @@ import {
   MESSAGE_RECEIVED,
   SENT_MESSAGE_RECEIVED,
   USER_LEFT,
-  LEAVE_CHAT
+  LEAVE_CHAT,
+  DISMISS_NEW_CHAT
 } from './types';
 import io from 'socket.io-client';
 
@@ -187,6 +188,13 @@ export function chatStarted (room, users) {
       type: CHAT_STARTED,
       payload: { room, users: users.filter(user => user !== username) }
     });
+  };
+}
+
+export function dismissNewChat (room) {
+  return {
+    type: DISMISS_NEW_CHAT,
+    payload: { room }
   };
 }
 
