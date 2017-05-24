@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import RenderNewAlert from 'NewAlertTemplate';
 import ChatTemplate from 'ChatTemplate';
 import * as actions from '../../actions';
 
@@ -45,9 +47,9 @@ class Message extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.chats.hasOwnProperty(this.state.room)) {
-      this.context.router.history.push('/userlist');
-    }
+    // if (!this.props.chats.hasOwnProperty(this.state.room)) {
+    //   this.context.router.history.push('/userlist');
+    // }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -134,8 +136,11 @@ class Message extends Component {
   }
 
   render () {
+    const { newChats } = this.state;
+
     return (
       <div className="message-list">
+        <RenderNewAlert newChats={newChats} />
         {this.renderChat()}
       </div>
     );

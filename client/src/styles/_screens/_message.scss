@@ -1,6 +1,20 @@
 .message-list {
   height: 100%;
 
+  .new-alert {
+    width: 50%;
+    float: right;
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    transition: 1s;
+
+    .alert {
+      width: 100%;
+      float: left;
+      transition: all .75s ease;
+    }
+  }
   .chat-window {
     height: 100%;
 
