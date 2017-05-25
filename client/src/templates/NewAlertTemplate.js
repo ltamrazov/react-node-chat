@@ -16,7 +16,7 @@ class NewAlert extends Component {
                 key={room}
                 className="alert alert-success"
               >
-                New chat with {users}
+                {users} is trying to initiate chat.
               </Link>
             );
           })

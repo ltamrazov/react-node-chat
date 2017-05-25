@@ -49,6 +49,8 @@ class UserList extends Component {
   renderUser (user, index) {
     const username = this.props.username;
 
+    console.log(user);
+
     if (username !== user) {
       return (
         <UserListTemplate key={index} user={user} userClick={(ele) => {

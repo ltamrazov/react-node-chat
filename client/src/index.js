@@ -13,7 +13,7 @@ import { connectSocket } from './actions';
 
 // Variable store for loading all reducers
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-const store = createStoreWithMiddleware(allReducers);
+const store = createStoreWithMiddleware(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 const token = sessionStorage.getItem('chattoken');
 const username = sessionStorage.getItem('username');
 

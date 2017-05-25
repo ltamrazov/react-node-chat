@@ -22,6 +22,37 @@ class Message extends Component {
     router: React.PropTypes.object
   }
 
+  componentWillMount() {
+    if (!this.props.chats.hasOwnProperty(this.state.room)) {
+      this.context.router.history.push('/userlist');
+      this.setState({ room: null });
+    }
+  }
+
+  componentDidMount() {
+    const { room } = this.state;
+    if (room) {
+      this.props.dismissNewChat(room);
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const prevChats = Object.keys(this.props.chats);
+    const currentChats = Object.keys(nextProps.chats);
+
+    if (prevChats.length !== currentChats.length) {
+      const newChats = currentChats.filter(room =>
+        room !== 'undefined' && !prevChats.includes(room)
+      );
+
+      newChats.forEach(room =>
+        this.setState((prevState, props) => ({
+          newChats: prevState.newChats.concat({ ...nextProps.chats[room], room })
+        }))
+      );
+    }
+  }
+
   renderSendMessage () {
     return (
       <div className='new-message-div'>
@@ -44,35 +75,6 @@ class Message extends Component {
         </button>
       </div>
     );
-  }
-
-  componentWillMount() {
-    // if (!this.props.chats.hasOwnProperty(this.state.room)) {
-    //   this.context.router.history.push('/userlist');
-    // }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const prevChats = Object.keys(this.props.chats);
-    const currentChats = Object.keys(nextProps.chats);
-
-    if (prevChats.length !== currentChats.length) {
-      const newChats = currentChats.filter(room =>
-        room !== 'undefined' && !prevChats.includes(room)
-      );
-
-      newChats.forEach(room =>
-        this.setState((prevState, props) => ({
-          newChats: prevState.newChats.concat({ ...nextProps.chats[room], room })
-        }))
-      );
-    }
-  }
-
-  dismissNewChat (room) {
-    this.setState((prevState, props) => ({
-      newChats: prevState.newChats.filter(chat => chat.room !== room)
-    }));
   }
 
   handleSendMessage () {
@@ -137,7 +139,7 @@ class Message extends Component {
 
   render () {
     const { newChats } = this.state;
-
+    
     return (
       <div className="message-list">
         <RenderNewAlert newChats={newChats} />
