@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import * as actions from '../../actions';
+import { signinUser } from '../../actions';
 
 import { required, email } from '../../utils/validator';
 import { renderField } from '../../templates/FormInput';
@@ -18,7 +18,7 @@ class Signin extends Component {
   }
 
   handleFormSubmit ({ username, password }) {
-    this.props.signIn({ username, password })
+    this.props.signinUser({ username, password })
       .then(() => {
         if (this.props.token) {
           this.context.router.history.push('/userlist');
@@ -86,10 +86,4 @@ function mapStateToProps (state) {
   };
 };
 
-function mapDispatchToProps (dispatch) {
-  return {
-    signIn: credentials => dispatch(actions.signinUser(credentials))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(form(Signin));
+export default connect(mapStateToProps, { signinUser })(form(Signin));

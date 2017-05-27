@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import * as actions from '../../actions';
+import { signupUser } from '../../actions';
 
 import { required, email } from '../../utils/validator';
 import { renderField } from '../../templates/FormInput';
@@ -19,7 +19,7 @@ class Signup extends Component {
 
   handleFormSubmit (formProps) {
     // Call action creator to sign up the user
-    this.props.signUp(formProps)
+    this.props.signupUser(formProps)
       .then(() => {
         if (this.props.token) {
           this.context.router.history.push('/userlist');
@@ -91,10 +91,4 @@ function mapStateToProps (state) {
   };
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    signUp: form => dispatch(actions.signupUser(form))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(form(Signup));
+export default connect(mapStateToProps, { signupUser })(form(Signup));

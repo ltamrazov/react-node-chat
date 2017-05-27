@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import UserListTemplate from 'UserListTemplate';
-import * as actions from '../../actions';
+import { requestChat } from '../../actions';
 
 class UserList extends Component {
   constructor (props) {
@@ -90,11 +90,4 @@ function mapStateToProps (state) {
   };
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    requestChat: user =>
-      dispatch(actions.requestChat(user))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserList);
+export default connect(mapStateToProps, { requestChat })(UserList);
