@@ -13,8 +13,7 @@ class Message extends Component {
     this.handleSendMessage = this.handleSendMessage.bind(this);
 
     this.state = {
-      room: this.props.match.params.room,
-      newChats: []
+      room: this.props.match.params.room
     };
   }
 
@@ -33,23 +32,6 @@ class Message extends Component {
     const { room } = this.state;
     if (room) {
       this.props.dismissNewChat(room);
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const prevChats = Object.keys(this.props.chats);
-    const currentChats = Object.keys(nextProps.chats);
-
-    if (prevChats.length !== currentChats.length) {
-      const newChats = currentChats.filter(room =>
-        room !== 'undefined' && !prevChats.includes(room)
-      );
-
-      newChats.forEach(room =>
-        this.setState((prevState, props) => ({
-          newChats: prevState.newChats.concat({ ...nextProps.chats[room], room })
-        }))
-      );
     }
   }
 
@@ -138,8 +120,13 @@ class Message extends Component {
   }
 
   render () {
-    const { newChats } = this.state;
-    
+    const chats = this.props.chats;
+    const newChats = Object.keys(chats)
+      .filter(room => chats[room].isNew)
+      .map(room => Object.assign({ room }, chats[room]));
+
+console.log('newChats', newChats);
+
     return (
       <div className="message-list">
         <RenderNewAlert newChats={newChats} />
