@@ -8,12 +8,12 @@ class NewAlert extends Component {
     if (newChats.length > 0) {
       return (
         <div className="new-alert">
-          {newChats.map((chat, index) => {
+          {newChats.map(chat => {
             const { room, users } = chat;
             return (
               <Link
                 to={`/message/${room}`}
-                key={room || index}
+                key={room}
                 className="alert alert-success"
               >
                 {users} is trying to initiate chat.

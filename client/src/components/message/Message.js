@@ -122,7 +122,7 @@ class Message extends Component {
   render () {
     const chats = this.props.chats;
     const newChats = Object.keys(chats)
-      .filter(room => chats[room].isNew)
+      .filter(room => room && chats[room].isNew)
       .map(room => Object.assign({ room }, chats[room]));
 
 console.log('newChats', newChats);
