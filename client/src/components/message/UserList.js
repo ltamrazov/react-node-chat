@@ -46,14 +46,12 @@ class UserList extends Component {
     }
   }
 
-  renderUser (user, index) {
+  renderUser (user, isNew) {
     const username = this.props.username;
-
-    console.log(user);
 
     if (username !== user) {
       return (
-        <UserListTemplate key={index} user={user} userClick={(ele) => {
+        <UserListTemplate key={user} user={user} newChat={isNew} userClick={(ele) => {
           this.userClick(ele, user);
         }} />
       );
@@ -61,9 +59,11 @@ class UserList extends Component {
   }
 
   render () {
-    const userList = Object.keys(this.props.users);
+    const { users, chats } = this.props;
+    const { newChatUsers, others } = sortUsers(Object.keys(users).map(user =>
+      users[user]), chats);
 
-    if (userList < 1) {
+    if (newChatUsers.length + others.length <= 1) {
       return (
         <div className="no-user">
           No user found
@@ -74,12 +74,35 @@ class UserList extends Component {
     return (
       <div className="user-list">
         <ul>
-          {userList.map((key, index) =>
-            this.renderUser(this.props.users[key], index))}
+          {newChatUsers.map(user =>
+            this.renderUser(user, true))
+          }
+          {others.map(user =>
+            this.renderUser(user, false))
+          }
         </ul>
       </div>
     );
   }
+}
+
+function sortUsers (users, chats) {
+  const newChatUsers = Object.keys(chats)
+    .filter(room => chats[room].isNew)
+    .map(room => chats[room].users)
+    .reduce((newUsers, users) =>
+      newUsers.concat(users.filter(user =>
+        !newUsers.includes(users))
+      ),
+    [])
+    .sort();
+
+  const others = users
+    .filter(user =>
+      !newChatUsers.includes(user))
+    .sort();
+
+  return { newChatUsers, others };
 }
 
 function mapStateToProps (state) {

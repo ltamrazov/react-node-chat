@@ -125,8 +125,6 @@ class Message extends Component {
       .filter(room => room && chats[room].isNew)
       .map(room => Object.assign({ room }, chats[room]));
 
-console.log('newChats', newChats);
-
     return (
       <div className="message-list">
         <RenderNewAlert newChats={newChats} />
