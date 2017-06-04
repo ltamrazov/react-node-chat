@@ -1,6 +1,6 @@
 {
   "parserOptions": {
-    "ecmaVersion": 8,
+    "ecmaVersion": 6,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "jsx": true
@@ -14,6 +14,9 @@
     "mocha": true
   },
 
+  "plugins": [
+    "react"
+  ],
 
   "globals": {
     "document": false,

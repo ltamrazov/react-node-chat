@@ -22,14 +22,14 @@ class Message extends Component {
     router: PropTypes.object
   }
 
-  componentWillMount() {
+  componentWillMount () {
     if (!this.props.chats.hasOwnProperty(this.state.room)) {
       this.context.router.history.push('/userlist');
       this.setState({ room: null });
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { room } = this.state;
     if (room) {
       this.props.dismissNewChat(room);
@@ -93,7 +93,7 @@ class Message extends Component {
 
   renderChat () {
     const chat = this.props.chats[this.state.room];
-    const messageList = chat && chat.messages || [];
+    const messageList = (chat && chat.messages) || [];
 
     if (messageList.length < 1) {
       return (
