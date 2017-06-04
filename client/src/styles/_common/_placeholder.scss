@@ -1,0 +1,27 @@
+@include placeholder('clear') {
+  clear: both;
+}
+
+@include placeholder('remove-border') {
+  border: 0;
+}
+
+@include placeholder('reset-margin') {
+  margin: 0 auto;
+}
+
+@include placeholder('create-circle') {
+  border-radius: 50%;
+}
+
+@include placeholder ('clearfix') {
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

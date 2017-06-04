@@ -5,9 +5,8 @@ import PublicNavigation from 'PublicNavigation';
 import PrivateNavigation from 'PrivateNavigation';
 
 class Navigation extends Component {
-  renderLinks() {
-
-    if(this.props.authenticated) {
+  renderLinks () {
+    if (this.props.authenticated) {
       return (
         <PrivateNavigation />
       );
@@ -18,7 +17,7 @@ class Navigation extends Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <nav className="chat-navigation">
         <button
@@ -41,7 +40,7 @@ class Navigation extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     authenticated: state.auth.authenticated
   };

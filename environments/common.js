@@ -38,7 +38,6 @@ const componentAliases =
 module.exports = {
   entry: {
     vendor: [
-      'jquery',
       'tether',
       'bootstrap',
       'react',
@@ -83,8 +82,6 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
       'Tether': 'tether'
     }),
 

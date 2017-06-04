@@ -1,4 +1,7 @@
 /**** Base scss file that imports all the other common files ****/
-@import './variables';
-@import './mixins';
-@import './common';
+@import
+  './variables',
+  './mixins',
+  './setup',
+  './placeholder',
+  './common';

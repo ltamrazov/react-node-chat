@@ -5,7 +5,6 @@ const ExtractCSS = new ExtractTextPlugin('css/[name].css');
 module.exports = {
   entry: {
     bundle: [
-
       './src/index.js'
     ]
   },

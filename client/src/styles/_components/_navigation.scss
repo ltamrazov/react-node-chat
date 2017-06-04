@@ -51,7 +51,11 @@
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: $screen-md-min) {
-
+  .chat-navigation {
+    .navbar-brand {
+      @include add-font-transparency($black, 0.3);
+    }
+  }
 }
 
 /* Large devices (large desktops, 1200px and up) */

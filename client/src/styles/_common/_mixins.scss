@@ -1,23 +1,131 @@
 /**** Custom created mixins stay here ****/
-@mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -ms-border-radius: $radius;
-  border-radius: $radius;
+@mixin border-radius($radius, $extend: true) {
+  @if $extend {
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+  }
+  @else {
+    @include border-radius($radius, false);
+  }
 }
 
-@mixin add-bg-transparency($base-color, $amount) {
-  background-color: transparentize($base-color, $amount);
+@mixin border-top-radius($radius, $extend: true) {
+  @if $extend {
+    -webkit-border-top-right-radius: $radius;
+    border-top-right-radius: $radius;
+    -webkit-border-top-left-radius: $radius;
+    border-top-left-radius: $radius;
+    background-clip: padding-box;
+  }
+  @else {
+    @include border-top-radius($radius, false);
+  }
 }
 
-@mixin add-border-transparency($base-color, $amount) {
-  border-color: transparentize($base-color, $amount);
+@mixin border-right-radius($radius, $extend: true) {
+  @if $extend {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    -webkit-border-top-right-radius: $radius;
+    border-top-right-radius: $radius;
+    background-clip: padding-box;
+  }
+  @else {
+    @include border-right-radius($radius, false);
+  }
 }
 
-@mixin add-font-transparency($base-color, $amount) {
-  color: transparentize($base-color, $amount);
+@mixin border-bottom-radius($radius, $extend: true) {
+  @if $extend {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    -webkit-border-bottom-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    background-clip: padding-box;
+  }
+  @else {
+    @include border-bottom-radius($radius, false);
+  }
 }
 
-@mixin add-outline-transparency ($base-color, $amount) {
-  outline-color: transparentize($base-color, $amount);
+@mixin border-left-radius($radius, $extend: true) {
+  @if $extend {
+    -webkit-border-bottom-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    -webkit-border-top-left-radius: $radius;
+    border-top-left-radius: $radius;
+    background-clip: padding-box;
+  }
+  @else {
+    @include border-left-radius($radius, false);
+  }
 }
+
+@mixin add-bg-transparency($base-color, $amount, $extend: true) {
+  @if $extend {
+    background-color: transparentize($base-color, $amount);
+  }
+  @else {
+    @include add-bg-transparenc($base-color, $amount, false);
+  }
+}
+
+@mixin add-border-transparency($base-color, $amount, $extend: true) {
+  @if $extend {
+    border-color: transparentize($base-color, $amount);
+  }
+  @else {
+    @include add-border-transparency($base-color, $amount, false);
+  }
+}
+
+@mixin add-font-transparency($base-color, $amount, $extend: true) {
+  @if $extend {
+    color: transparentize($base-color, $amount);
+  }
+  @else {
+    @include add-font-transparency($base-color, $amount, false);
+  }
+}
+
+@mixin add-outline-transparency($base-color, $amount, $extend: true) {
+  @if $extend {
+    outline-color: transparentize($base-color, $amount);
+  }
+  @else {
+    @include add-outline-transparency($base-color, $amount, false);
+  }
+}
+
+@mixin opacity($opacity, $extend: true) {
+  @if $extend {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); //IE8
+  }
+  @else {
+    @include opacity($opacity, false);
+  }
+}
+
+@mixin box-sizing($box-model, $extend: true) {
+  @if $extend {
+    -webkit-box-sizing: $box-model; // Safari <= 5
+    -moz-box-sizing: $box-model; // Firefox <= 19
+    box-sizing: $box-model;
+  }
+  @else {
+    @include box-sizing($box-model, false);
+  }
+}
+
+@mixin width-x-list {
+  @each $size in $sizes {
+    .width-#{$size} {
+      width: $size * 10%;
+    }
+  }
+}
+
+@include width-x-list;
