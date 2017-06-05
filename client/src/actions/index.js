@@ -79,7 +79,7 @@ export function connectSocket () {
           query: 'token=' + token
         });
 
-        socket.on('connect_error', error => reject);
+        socket.on('connect_error', error => reject(error));
 
         socket.once('connect', () => {
           dispatch(socketConnecting(false));

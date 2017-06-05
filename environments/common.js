@@ -27,9 +27,9 @@ const componentAliases =
       .filter(fullPath =>
         components.extensions.includes(path.extname(fullPath))
       )
-      .forEach(fullPath =>
-        aliases[path.basename(fullPath, path.extname(fullPath))] = fullPath
-      );
+      .forEach(fullPath => {
+        aliases[path.basename(fullPath, path.extname(fullPath))] = fullPath;
+      });
 
     return aliases;
   }, {}

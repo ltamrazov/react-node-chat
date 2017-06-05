@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class PublicNavigation extends Component {
-  render() {
+  render () {
     return (
       <div className="collapse navbar-collapse" id="navbarMenu">
         <ul className="navbar-nav ml-auto my-2 my-lg-0">

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { signinUser } from '../../actions';
 
-import { required, email } from '../../utils/validator';
+import { required } from '../../utils/validator';
 import { renderField } from '../../templates/FormInput';
 
 class Signin extends Component {

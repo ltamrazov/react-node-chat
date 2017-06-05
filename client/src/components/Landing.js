@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 class Landing extends Component {
-  render() {
+  render () {
     return (
       <div>
         Welcome to our mini chat app!
