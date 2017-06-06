@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import UserListTemplate from 'UserListTemplate';
+import UserListTemplate from '../../templates/UserListTemplate';
 import { requestChat } from '../../actions';
 
 class UserList extends Component {

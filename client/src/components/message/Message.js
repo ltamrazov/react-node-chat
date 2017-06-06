@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import RenderNewAlert from 'NewAlertTemplate';
-import ChatTemplate from 'ChatTemplate';
+import RenderNewAlert from '../../templates/NewAlertTemplate';
+import ChatTemplate from '../../templates/ChatTemplate';
 import * as actions from '../../actions';
 
 class Message extends Component {

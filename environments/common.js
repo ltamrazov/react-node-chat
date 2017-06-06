@@ -3,52 +3,11 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const fs = require('fs');
 
 const clientPath = path.resolve(__dirname, '..', 'client');
 
-const components = {
-  extensions: ['.js'],
-  paths: [
-    'src/components',
-    'src/components/auth',
-    'src/components/message',
-    'src/components/navigation',
-    'src/templates'
-  ]
-};
-
-const componentAliases =
-  components.paths.reduce((aliases, currentPath) => {
-    fs.readdirSync(path.resolve(clientPath, currentPath))
-      .map(file =>
-        path.resolve(clientPath, currentPath, file)
-      )
-      .filter(fullPath =>
-        components.extensions.includes(path.extname(fullPath))
-      )
-      .forEach(fullPath => {
-        aliases[path.basename(fullPath, path.extname(fullPath))] = fullPath;
-      });
-
-    return aliases;
-  }, {}
-);
-
 module.exports = {
   entry: {
-    vendor: [
-      'jquery',
-      'tether',
-      'bootstrap',
-      'react',
-      'react-dom',
-      'redux',
-      'react-redux',
-      'redux-form',
-      'redux-thunk',
-      'socket.io-client'
-    ],
     main: '../client/src/styles/main.scss'
   },
 
@@ -59,7 +18,7 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.jsx'],
-    alias: componentAliases
+    modules: ['src', 'node_modules']
   },
 
   module: {
@@ -105,7 +64,15 @@ module.exports = {
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest']
+      name: 'vendor',
+      minChunks: function (module) {
+        // this assumes your vendor imports exist in the node_modules directory
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      }
+    }),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest'
     }),
 
     new HTMLWebpackPlugin({

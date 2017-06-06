@@ -1,13 +1,13 @@
 import React from 'react';
-import Navigation from 'Navigation';
+import Navigation from './navigation/Navigation';
 import { Route } from 'react-router-dom';
-import Landing from 'Landing';
-import Signin from 'Signin';
-import Signup from 'Signup';
-import Signout from 'Signout';
-import Message from 'Message';
-import UserList from 'UserList';
-import RequireAuth from 'RequireAuth';
+import Landing from './Landing';
+import Signin from './auth/Signin';
+import Signup from './auth/Signup';
+import Signout from './auth/Signout';
+import Message from './message/Message';
+import UserList from './message/UserList';
+import RequireAuth from './auth/RequireAuth';
 
 const App = ({ children }) => {
   return (
