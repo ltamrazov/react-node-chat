@@ -15,7 +15,7 @@ import {
   USER_LEFT,
   LEAVE_CHAT,
   DISMISS_NEW_CHAT
-} from './types';
+} from './constants';
 import io from 'socket.io-client';
 
 const API_PORT = 9494;

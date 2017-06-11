@@ -1,7 +1,7 @@
 import {
   FETCH_USER,
   RECEIVE_USERS
-} from '../actions/types';
+} from '../containers/App/constants';
 
 export default function (state = [], action) {
   switch (action.type) {

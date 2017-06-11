@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import RenderNewAlert from '../../templates/NewAlertTemplate';
 import ChatTemplate from '../../templates/ChatTemplate';
-import * as actions from '../../actions';
+import * as actions from '../App/actions';
 
 class Message extends Component {
   constructor (props) {

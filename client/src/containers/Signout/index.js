@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signoutUser } from '../../actions';
+import { signoutUser } from '../App/actions';
 
 class Signout extends Component {
   componentWillMount () {

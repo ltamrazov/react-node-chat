@@ -8,8 +8,8 @@ import allReducers from './reducers';
 
 import Routes from './router';
 
-import { AUTH_USER } from './actions/types';
-import { connectSocket } from './actions';
+import { AUTH_USER } from 'containers/App/constants';
+import { connectSocket } from 'containers/App/actions';
 
 // Variable store for loading all reducers
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);

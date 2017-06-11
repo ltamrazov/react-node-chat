@@ -5,7 +5,7 @@ import {
   USER_LEFT,
   LEAVE_CHAT,
   DISMISS_NEW_CHAT
-} from '../actions/types';
+} from '../containers/App/constants';
 
 export default function (state = {}, action) {
   const { user, users, room, message, from, read, when } = (action.payload || {});

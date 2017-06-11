@@ -4,7 +4,7 @@ import {
   CONNECTING_SOCKET,
   UNAUTH_USER,
   AUTH_ERROR
-} from '../actions/types';
+} from '../containers/App/constants';
 
 export default function (state = {}, action) {
   switch (action.type) {
