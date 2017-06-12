@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import RenderNewAlert from '../../templates/NewAlertTemplate';
 import ChatTemplate from '../../templates/ChatTemplate';
-import * as actions from '../App/actions';
+import { sendMessage, dismissNewChat } from './actions';
 
 class Message extends Component {
   constructor (props) {
@@ -140,4 +140,4 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(Message);
+export default connect(mapStateToProps, { sendMessage, dismissNewChat })(Message);

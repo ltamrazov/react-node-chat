@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { signinUser } from '../App/actions';
+import { signinUser } from './actions';
 
 import { required } from '../../utils/validator';
 import { renderField } from '../../templates/FormInput';

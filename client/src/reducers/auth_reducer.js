@@ -2,9 +2,12 @@ import {
   AUTH_USER,
   CONNECT_SOCKET,
   CONNECTING_SOCKET,
-  UNAUTH_USER,
   AUTH_ERROR
 } from '../containers/App/constants';
+
+import {
+  UNAUTH_USER
+} from '../containers/Signout/constants';
 
 export default function (state = {}, action) {
   switch (action.type) {
