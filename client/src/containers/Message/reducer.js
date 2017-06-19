@@ -2,16 +2,16 @@ import {
   CHAT_STARTED,
   MESSAGE_RECEIVED,
   USER_LEFT
-} from '../containers/App/constants';
+} from '../App/constants';
 
 import {
   MESSAGE_SENT,
   DISMISS_NEW_CHAT
-} from '../containers/Message/constants';
+} from './constants';
 
 import {
   LEAVE_CHAT
-} from '../containers/Signout/constants';
+} from '../Signout/constants';
 
 export default function (state = {}, action) {
   const { user, users, room, message, from, read, when } = (action.payload || {});

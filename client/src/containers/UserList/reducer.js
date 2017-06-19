@@ -1,6 +1,6 @@
 import {
   RECEIVE_USERS
-} from '../containers/App/constants';
+} from '../App/constants';
 
 export default function (state = [], action) {
   switch (action.type) {
